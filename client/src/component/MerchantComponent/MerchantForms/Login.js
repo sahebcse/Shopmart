@@ -4,7 +4,7 @@ import { Grid, Typography, Container, Button, Modal, makeStyles} from '@material
 import {useDispatch} from 'react-redux'
 import {useNavigate} from 'react-router-dom'
 
-import {merchantSignup} from '../../../action/Auth'
+import {merchantSignup,merchantLogin} from '../../../action/Auth'
 
 const useStyles=makeStyles((theme) => ({
     paper: {
@@ -40,7 +40,7 @@ const useStyles=makeStyles((theme) => ({
     }
   }))
 
-const Login = ({bankDetails, selectedCSC}) => {
+const Login = ({bankDetails, selectedCSC, isSignin}) => {
     console.log(bankDetails)
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -54,10 +54,17 @@ const Login = ({bankDetails, selectedCSC}) => {
     
 
     const googleSuccess = async (res) => {
-        const result = res?.profileObj;
-        const token = res?.tokenId;
-        console.log('google result', result)
-        dispatch(merchantSignup({result,token,bankDetails,selectedCSC}, navigate))
+        if(!isSignin){
+            const result = res?.profileObj;
+            const token = res?.tokenId;
+            console.log('google result', result)
+            dispatch(merchantSignup({result,token,bankDetails,selectedCSC}, navigate))
+        }else{
+            console.log("sign in")
+            const result = res?.profileObj;
+            const token = res?.tokenId;
+            dispatch(merchantLogin({result,token}, navigate))
+        }
       };
     
     const googleFailure = async () => {
@@ -66,6 +73,8 @@ const Login = ({bankDetails, selectedCSC}) => {
 
     return(
         <Container className={classes.baseContainer}>
+                {!isSignin && <div>
+
                 <div>
                     <h1>Address</h1>
                     <h3>{selectedCSC.streetAddress}</h3>
@@ -78,7 +87,8 @@ const Login = ({bankDetails, selectedCSC}) => {
                     <h3>Bank : {bankDetails.bankName}</h3>
                     <h3>Account No. {bankDetails.accountNumber}</h3>
                 </div>
-            <div className="flex justify-center m-3">
+                </div>}
+            <div className="flex justify-center m-3 px-2 py-4">
 
                 <GoogleLogin
                     // ---> CREATE YOUR OWN GOOGLE CLIENT FROM "console.developers.google.com" AND PASTE HERE (DELETE IT BEFORE PUSHING) <---

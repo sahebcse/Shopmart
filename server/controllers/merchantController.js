@@ -11,6 +11,7 @@ const createMerchant=async (req, res)=>
             logo:result.imageUrl,
             address:address,
             bankDetails:bankDetails,
+            storeName:address.storeName
         })
         console.log(merchant)
         res.status(200).json(merchant)
@@ -19,7 +20,7 @@ const createMerchant=async (req, res)=>
     catch(error)
     {
         console.log(error)
-        res.status(403).json({})
+        res.status(403).json({message:"unable to create vecndor account at the moment"})
     }
 }
 
@@ -36,36 +37,15 @@ const getMerchantById=async (req, res)=>
     }
 }
 
-const loginMerchant=(req, res)=>
-{
-    console.log(req.body)
-    Merchant.findOne({email: req.body.email}, (err, user)=>
-    {
-        if (err)
-        {
-            console.log(err)
-            return reply.send(err)
-        }
-        else
-        {
-            console.log(user)
-            bcrypt.compare(req.body.password, user.password, function(berr, result)
-            {
-                if (berr)
-                {
-                    console.log(berr)
-                }
-                else
-                {
-                    if (result)
-                    {
-                        const token=jwt.sign({id:user._id}, 'fsdfsdfsdfsdfdsfds') //put process.env.SECRET_KEY here
-                        res.json({result: user, token: token})
-                    }
-                }
-            })
-        }
-    })
+const loginMerchant=async (req, res)=> {
+    try {
+        const merchant = await Merchant.find({email:req.body.email}).populate('products')
+        console.log("login",merchant)
+        res.status(200).json(merchant)
+    } catch (error) {
+        console.log(error.message)
+        res.status(404).json({message:"Merchant not found"})
+    }
 }
 
 module.exports={createMerchant, getMerchantById, loginMerchant}
