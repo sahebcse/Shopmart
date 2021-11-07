@@ -13,7 +13,8 @@ let storeCities = []
 let countryISO = ''
 
 const StoreDetails = ({selectedCSC, setSelectedCSC}) => {
-    const [value,setValue]  = useState('')
+    const [value,setValue]  = useState(selectedCSC.storeName)
+    const [value2,setValue2]  = useState(selectedCSC.streetAddress)
 
     console.log("rerender")
 
@@ -30,10 +31,14 @@ const StoreDetails = ({selectedCSC, setSelectedCSC}) => {
     }
 
     const handeChangeStreetAddress = (e)=>{
+        setValue2(e.target.value)
         selectedCSC.streetAddress = e.target.value
+        console.log(selectedCSC.streetAddress)
     }
     const handeChangeStoreName = (e)=>{
+        setValue(e.target.value)
         selectedCSC.storeName = e.target.value
+        console.log(selectedCSC.storeName)
     }
     
     
@@ -51,10 +56,10 @@ const StoreDetails = ({selectedCSC, setSelectedCSC}) => {
     return (
         <div >
             <FormControl sx={{ px: 1,mt: 3, minWidth: 120 }} className="m-1" fullWidth>
-                <TextField  label="Store Name" variant="outlined"  value={selectedCSC.storeName} fullWidth onChange={handeChangeStoreName}/>
+                <TextField  label="Store Name" variant="outlined"  value={value} fullWidth onChange={handeChangeStoreName}/>
             </FormControl>
             <FormControl sx={{ px: 1,mt: 3, minWidth: 120 }} className="m-1" fullWidth>
-                <TextField  label="Street Address" variant="outlined"  value={selectedCSC.streetAddress} fullWidth onChange={handeChangeStreetAddress}/>
+                <TextField  label="Street Address" variant="outlined"  value={value2} fullWidth onChange={handeChangeStreetAddress}/>
             </FormControl>
             <FormControl sx={{ px: 1, mt:3, minWidth: 120 }} className="m-3 w-1/2">
                 <InputLabel id="demo-simple-select-helper-label">Country</InputLabel>
