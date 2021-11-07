@@ -36,7 +36,7 @@ const Navbar = (props) => {
       className={
         (props.transparent
           ? "top-0 absolute z-50 w-full"
-          : "relative shadow-lg bg-white shadow-lg") +
+          : "relative shadow-lg bg-white") +
         " flex flex-wrap items-center justify-between px-2 py-1 "
       }
     >
