@@ -30,8 +30,8 @@ function Product() {
   };
 
   return (
-    <div className="flex justify-start items-start w-screen h-screen">
-      <div className="w-2/5 h-full flex justify-center items-center flex-col">
+    <div className="flex justify-start flex-col items-start w-screen md:h-screen md:flex-row">
+      <div className="w-full h-full flex justify-center items-center flex-col md:w-2/5">
         <img className="w-full h-5/6" src={data.image}></img>
         <div className="w-full flex justify-center items-center">
           <button className="bg-yellow-700 px-6 py-2 rounded-sm text-white m-3 hover:bg-yellow-900">
@@ -42,7 +42,7 @@ function Product() {
           </button>
         </div>
       </div>
-      <div className="w-3/5 h-full mt-10 overflow-scroll overflow-x-hidden">
+      <div className="md:w-3/5 w-full md:h-full mt-10 overflow-hidden overflow-x-hidden md:overflow-x-hidden md:overflow-scroll ">
         <div className="p-8 border shadow-md w-full">
           <h1 className="text-sm opacity-70">{data.category}</h1>
           <h1 className="text-3xl">{data.name}</h1>
