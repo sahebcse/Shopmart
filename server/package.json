@@ -1,7 +1,7 @@
 {
-  "name": "server",
+  "name": "daintree",
   "version": "1.0.0",
-  "description": "",
+  "description": "Fully fledged e-commerce platform with a name inspired from a rainforest!",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
