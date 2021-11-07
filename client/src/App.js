@@ -1,19 +1,21 @@
 import logo from './logo.svg';
-import './App.css';
+import {Route, Link, Routes, BrowserRouter as Router, Redirect } from 'react-router-dom'
+import {Switch} from 'react-router'
+
+import Navbar from './component/Views/Navbar'
+import MerchantSignup from './component/MerchantComponent/MerchantForms/SignupForm'
+import MerchantDashBoard from './component/MerchantComponent/Dashboard/Dashboard'
 
 function App() {
   return (
     <div className="App">
-      <div className="bg-gray-900 p-20 h-screen flex justify-center items-start flex-col">
-      <h1 className="text-5xl text-white"> ShopMart. 👋</h1>
-      <p className="text-gray-400 mt-5 text-lg">
-      Hackathon starts  !!!
-      </p>
-      <button class="p-4 bg-green-600 rounded-lg font-bold text-white mt-5 hover:bg-gray-600">
-        Lets Begin !
-      </button>
-    </div>
-       
+        <Router>
+          <Navbar />
+          <Routes>
+            <Route path="/merchant/signup" element={<MerchantSignup/>} />
+            <Route path="/merchant/:id" element={<MerchantDashBoard/>} />
+          </Routes>
+        </Router>
     </div>
   );
 }
