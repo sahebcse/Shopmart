@@ -1,24 +1,20 @@
 const Merchant = require('../models/merchantModel')
-const bcrypt=require('bcrypt')
-const jwt=require('jsonwebtoken')
 
 const createMerchant=async (req, res)=>
 {
     try
     {
-        const hashedPassword=await bcrypt.hash(req.body.password, 10)
-        const merchant=new Merchant({
-            name: req.body.name,
-            age: req.body.age,
-            email: req.body.email,
-            products: [],
-            address: req.body.address,
-            logo: req.body.logo,
-            storeName: req.body.storeName,
-            password: hashedPassword
+        const {result, bankDetails, address} = req.body
+        const merchant = await Merchant.create({
+            name:result.name,
+            email:result.email,
+            logo:result.imageUrl,
+            address:address,
+            bankDetails:bankDetails,
         })
-        const savedMerchant=await merchant.save()
-        res.json(savedMerchant)
+        console.log(merchant)
+        res.status(200).json(merchant)
+
     }
     catch(error)
     {

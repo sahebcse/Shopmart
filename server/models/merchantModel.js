@@ -23,15 +23,15 @@ const merchantSchema=new Schema({
         type: String,
         default: ''
     },
-    address: {
-        type: String,
-        default: ''
+    address: Object,
+    bankDetails:{
+        type:Object
     },
+    profits:Object,
     storeName: {
         type: String,
         required: true
-    },
-    password: String
+    }
 })
 
 const Merchant=mongoose.model('Merchant', merchantSchema)

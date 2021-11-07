@@ -27,6 +27,7 @@ const productSchema=new Schema({
         type: String,
         default: ''
     },
+    totalSold:Number,
     rating: {type: Number, default: 0},
     stock: {type: Number, default: 1},
     reviews: [{type: Schema.Types.ObjectId, ref: 'Review'}]
