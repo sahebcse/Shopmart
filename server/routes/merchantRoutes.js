@@ -3,7 +3,7 @@ const router=express.Router()
 
 const {createMerchant, getMerchantById, loginMerchant} =  require('../controllers/merchantController')
 
-router.post('/merchant', createMerchant)
+router.post('/merchant/signup', createMerchant)
 
 router.get('/merchant/:id', getMerchantById)
 
