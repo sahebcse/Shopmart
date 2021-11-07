@@ -5,21 +5,25 @@ const Review=require('../models/reviewModel')
 const createProduct=async (req, res)=>
 {
     try{
-        const tempProduct=new Product({
-            name: req.body.name,
-            image: req.body.image,
-            brand: req.body.brand,
-            category: req.body.category,
-            price: req.body.price,
-            description: req.body.description,
-            reviews: []
+        console.log(req.body)
+        const {productData, id} = req.body
+        const product = await Product.create({
+            name: productData.name,
+            image: productData.image,
+            brand: productData.brand,
+            category: productData.category,
+            price: productData.price,
+            description: productData.description,
+            merchant:id,
+            reviews: [],
+            totalSold:0,
+            totalProfit:0
         })
-    
-        const savedProduct=await tempProduct.save()
-        res.status(201).json(savedProduct)
-        const merchant=await Merchant.findById(req.body.merchantId)
-        await merchant.products.addToSet(savedProduct._id)
+        const merchant=await Merchant.findById(id)
+        merchant.products = [...merchant.products, product._id]
         await merchant.save()
+
+        res.status(201).json(product)
         
     }
     catch(error)
@@ -49,12 +53,12 @@ const editProductById=async (req, res)=>
 {
     try{
         const product=await Product.findById(req.params.id)
-        product.name=req.body.name
-        product.image=req.body.image
-        product.brand=req.body.brand
-        product.category-req.body.category
-        product.price=req.body.price
-        product.description=req.body.description
+        product.name=productData.name
+        product.image=productData.image
+        product.brand=productData.brand
+        product.category-productData.category
+        product.price=productData.price
+        product.description=productData.description
         await product.save()
         res.json(product)
     }   
@@ -83,7 +87,7 @@ const deleteProductById=async (req, res)=>
     try{
         const deletedProduct=await Product.findByIdAndDelete(req.params.id)
         res.json(deletedProduct)
-        const merchant=await Merchant.findById(req.body.merchantId)
+        const merchant=await Merchant.findById(productData.merchantId)
         await merchant.product.pull(req.params.id)
         await merchant.save()
     }
@@ -97,7 +101,9 @@ const deleteProductById=async (req, res)=>
 const getProductsByMerchant=async (req, res)=>
 {
     try{
-        const products=await Merchant.findById(req.params.merchantId).populate('products')
+        console.log("aaya hai",req.params.merchantId)
+        const products=await Product.find({merchant:req.params.merchantId}).sort({totalProfit:1})
+        console.log(products)
         res.json(products)
     }
     catch(error)
@@ -127,10 +133,10 @@ const addReview=async (req, res)=>
 {
     try{
         const tempReview=new Review({
-            user: req.body.userId,
-            title: req.body.title,
-            content: req.body.content,
-            rating: req.body.rating
+            user: productData.userId,
+            title: productData.title,
+            content: productData.content,
+            rating: productData.rating
         })
 
         const savedReview=await tempReview.save()

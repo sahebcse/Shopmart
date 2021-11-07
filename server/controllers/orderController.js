@@ -34,4 +34,23 @@ const  getOrderById=async (req, res)=>
     }
 }
 
-module.exports={createOrder, getOrderById}
+const  getOrderByMerchentId=async (req, res)=>
+{
+    try{
+        console.log("merc order",req.body)
+        if(req.body.all){
+            const order=await Order.find({merchantId: req.params.id})
+            res.json(order)
+        }else{
+            const order=await Order.find({merchantId: req.params.id, date:{$gte:req.body.startDate, $lte:req.body.endDate}})
+            res.json(order)
+        }
+    }
+    catch(error)
+    {
+        console.log(error)
+        res.status(404).json({message: 'Order not found'})
+    }
+}
+
+module.exports={createOrder, getOrderById,getOrderByMerchentId}

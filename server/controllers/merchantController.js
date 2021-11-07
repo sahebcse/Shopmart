@@ -48,4 +48,10 @@ const loginMerchant=async (req, res)=> {
     }
 }
 
-module.exports={createMerchant, getMerchantById, loginMerchant}
+const getAllMerchant = async (req, res)=> {
+    const user = await Merchant.find()
+    console.log("here",user)
+    res.json(user)
+}
+
+module.exports={createMerchant, getMerchantById, loginMerchant,getAllMerchant}
