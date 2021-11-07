@@ -1,7 +1,7 @@
 {
-  "name": "daintree",
+  "name": "ShopMart",
   "version": "1.0.0",
-  "description": "Fully fledged e-commerce platform with a name inspired from a rainforest!",
+  "description": "Fully fledged e-commerce platform !",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
