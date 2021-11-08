@@ -9,7 +9,7 @@
 
     Made with ❤ by Team KitKat
 
-     
+     https://shopmart-client.netlify.app  -- Checkout the application
 
 
 
