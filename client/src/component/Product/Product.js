@@ -7,7 +7,7 @@ import {useNavigate} from 'react-router'
 import * as toxicity from '@tensorflow-models/toxicity'
 import '@tensorflow/tfjs'
 import {addReview} from '../../api/index'
-import { getAProduct } from "../../api";
+import { getAProduct, addToCart } from "../../api";
 
 function Product() {
   const navigate = useNavigate()
@@ -79,7 +79,7 @@ function Product() {
   }
 
   const handleAddToCart = ()=>{
-
+      addToCart({id:data._id, userId:user?.result?._id})
   }
 
 

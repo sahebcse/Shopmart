@@ -25,6 +25,8 @@ export const getUserCartItems = (sendData) =>
 export const removeCartItemById = (sendData) =>
   axios.post(`${URL}/users/removeCartItemById`, sendData);
 
+export const addToCart = (sendData) => axios.post(`${URL}/users/addToCart`,sendData)
+
 export const getAllProducts = () => axios.get(`${URL}/products`);
 
 export const getStore = (id) => axios.get(`${URL}/merchant/${id}`);

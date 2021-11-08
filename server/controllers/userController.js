@@ -99,5 +99,23 @@ const removeCartItemById=async (req, res)=>
     }
 }
 
+const addToCart=async (req, res)=>
+{
+    try{
+        const {id, userId} = req.body
+        const users=await User.findById(userId)
+        const newcart = users.cart
+        newcart.push(id)
+        users.cart = newcart
+        await users.save()
+        res.status(200).json(users.cart)
+    }
+    catch(error)
+    {
+        console.log(error)
+        res.status(404).json({message: "Cart not updated"})
+    }
+}
 
-module.exports={createUser, getUserById, getAllUsers, deleteAllCartItems, getUserCartItems, removeCartItemById}
+
+module.exports={createUser, getUserById, getAllUsers, deleteAllCartItems, getUserCartItems, removeCartItemById, addToCart}
