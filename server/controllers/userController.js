@@ -215,5 +215,6 @@ const useReferral= async (req, res)=>
     catch(error)
     {
 
+    }
+}
 module.exports={createUser, getUserById, getAllUsers, deleteAllCartItems, getUserCartItems, removeCartItemById, addToCart,userLogin, getClientSecretKey, productOrdered, useReferral}
-

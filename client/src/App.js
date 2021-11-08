@@ -32,9 +32,7 @@ const promise = loadStripe(
   "pk_test_51J8GAsSH4Sh8XwNi3Gw7LEGc44TQTY63b8VdJP4D3fHL30bpHIJKlhL7BKcxex80KPwDZg08Adywy5WTeKLZbngP00FQwvXLWv"
 );
 
-import { loadStripe} from '@stripe/stripe-js'
-import {Elements} from '@stripe/react-stripe-js'
-const promise = loadStripe("pk_test_51J8GAsSH4Sh8XwNi3Gw7LEGc44TQTY63b8VdJP4D3fHL30bpHIJKlhL7BKcxex80KPwDZg08Adywy5WTeKLZbngP00FQwvXLWv")
+
 
 function App() {
   const dispatch = useDispatch();
