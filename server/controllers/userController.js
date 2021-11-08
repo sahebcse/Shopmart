@@ -129,5 +129,23 @@ const addToCart=async (req, res)=>
     }
 }
 
+const useReferral= async (req, res)=>
+{
+    try{
+        const user=await User.findById(req.body.userId)
+        const friend=await User.findById(req.body.friendId)
+        user.usedRef=true
+        user.coinBalance=user.coinBalance+100
+        friend.coinBalance=friend.coinBalance+100
+        friend.usedRef=true
+        await user.save()
+        await friend.save()
+        res.json(user)
+    }
+    catch(error)
+    {
 
-module.exports={createUser, getUserById, getAllUsers, deleteAllCartItems, getUserCartItems, removeCartItemById, addToCart,userLogin}
+    }
+}
+
+module.exports={createUser, getUserById, getAllUsers, deleteAllCartItems, getUserCartItems, removeCartItemById, addToCart,userLogin, useReferral}

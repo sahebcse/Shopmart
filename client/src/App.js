@@ -23,6 +23,7 @@ import SearchResults from "./component/Views/SearchResults";
 import CategoryResults from "./component/Views/CategoryResults";
 import UserLogin from "./component/Forms/UserLogin"
 import Stores from "./component/Store/Stores";
+import Referral from './component/Views/Referral'
 
 function App() {
   const dispatch = useDispatch();
@@ -45,6 +46,7 @@ function App() {
           <Route path="/search/:query" element={<SearchResults />} />
           <Route path="/category" element={<CategoryResults />} />
           <Route path='/stores' element={<Stores />} />
+          <Route path='/referral' element={<Referral />} />
         </Routes>
       </Router>
     </div>
