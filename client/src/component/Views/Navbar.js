@@ -37,6 +37,7 @@ const Navbar = (props) => {
   };
 
   const handleSearchSubmit = (e) => {
+    e.preventDefault()
     console.log(query);
     navigate(`/search/${query}`);
   };
@@ -95,14 +96,18 @@ const Navbar = (props) => {
             </button>
           </div>
           <div className="w-2/5">
+            <form onSubmit={handleSearchSubmit}>
             <input
               onChange={handleSearchChange}
               className="border-2 w-3/4 border-gray-200"
             />{" "}
-            <SearchIcon
-              onClick={handleSearchSubmit}
-              className="h-6 w-6 inline"
-            />
+            <button type="submit">
+              <SearchIcon
+                className="h-6 w-6 inline cursor-pointer"
+              />
+            </button>
+            
+            </form>
           </div>
 
           <div
