@@ -100,7 +100,7 @@ function Product() {
   return (
     <div className="flex justify-start flex-col items-start w-screen md:h-screen md:flex-row">
       <div className="w-full h-full flex justify-center items-center flex-col md:w-2/5">
-        <img className="w-full h-5/6" src={data.image}></img>
+        <img className="w-full h-5/6 object-contain" src={data.image}></img>
         <div className="w-full flex justify-center items-center">
           {user ? (
             <div>

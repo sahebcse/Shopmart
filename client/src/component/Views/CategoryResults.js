@@ -25,7 +25,7 @@ export default function CategoryResults() {
     return <div className="p-8">Nothing Here! Try another categories.</div>;
   } else {
     return (
-      <div className="flex flex-col justify-center items-center">
+      <div className="flex flex-col justify-center items-center mt-9 w-11/12">
         <div className="col-span-5 grid md:grid-cols-3 lg:grid-cols-4 gap-3 margin-2">
           {products.map((product) => (
             <ProductTile
