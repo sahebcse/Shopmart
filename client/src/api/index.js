@@ -22,6 +22,10 @@ export const getMerchantProducts = (sendData) =>
   axios.get(`${URL}/products/merchant/${sendData}`);
 
 //user api
+export const getClientSecretKey = (data)=>axios.post(`${URL}/user/getClientSecretKey`,data);
+
+export const productOrdered = (data)=>axios.post(`${URL}/user/productOrdered`,data);
+
 export const deleteAllCartItems = (sendData) =>
   axios.delete(`${URL}//users/deletecart/${sendData.id}`);
 
