@@ -13,12 +13,12 @@ function Product() {
   const navigate = useNavigate();
   const params = useParams();
   const products = useSelector((state) => state.Products);
-  const data=products.find((item)=>item._id==params.id)
   const user = JSON.parse(localStorage.getItem("profile"));
   console.log("this is user", user);
   const [reviewTitle, setReviewTitle] = useState("");
   const [comment, setComment] = useState("");
   const [model, setModel] = useState(null);
+  const [data, setData] = useState({});
 
   const commentChange = (e) => {
     setComment(e.target.value);
