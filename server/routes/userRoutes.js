@@ -1,9 +1,11 @@
 const express=require('express')
 const router=express.Router()
 
-const {createUser, getUserById, getAllUsers, deleteAllCartItems, getUserCartItems, removeCartItemById,addToCart} = require('../controllers/userController')
+const {createUser, getUserById, getAllUsers, deleteAllCartItems, getUserCartItems, removeCartItemById,addToCart,userLogin} = require('../controllers/userController')
 
-router.post('/user', createUser)
+router.post('/user/signup', createUser)
+
+router.post('/user/login', userLogin)
 
 router.get('/user/:id', getUserById)
 

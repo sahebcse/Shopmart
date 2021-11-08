@@ -9,6 +9,12 @@ export const merchantSignup = (sendData) =>
 export const merchantLogin = (sendData) =>
   axios.post(`${URL}/merchant/login`, sendData);
 
+export const userSignup = (sendData) =>
+  axios.post(`${URL}/user/signup`, sendData);
+
+export const userLogin = (sendData) =>
+  axios.post(`${URL}/user/login`, sendData);
+
 export const addNewProduct = (sendData) =>
   axios.post(`${URL}/product`, sendData);
 
@@ -36,11 +42,5 @@ export const searchProducts= (data) => axios.get(`${URL}/product/search/${data}`
 export const addReview=(sendData) => axios.post(`${URL}/product/${sendData.productId}/review`, sendData)
 
 export const getAProduct = (id) => axios.get(`${URL}/product/${id}`);
-<<<<<<< HEAD
 
-||||||| merged common ancestors
-=======
-
-export const getCategoyPro = (cat) =>
-  axios.get(`${URL}/products/category/${cat}`);
->>>>>>> Category Filter
+export const getCategoyPro = (cat) => axios.get(`${URL}/products/category/${cat}`);
