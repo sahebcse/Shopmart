@@ -2,103 +2,129 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import star from "../../star.png";
-import {useNavigate} from 'react-router'
-  
-import * as toxicity from '@tensorflow-models/toxicity'
-import '@tensorflow/tfjs'
-import {addReview} from '../../api/index'
+import { useNavigate } from "react-router";
+
+import * as toxicity from "@tensorflow-models/toxicity";
+import "@tensorflow/tfjs";
+import { addReview } from "../../api/index";
 import { getAProduct } from "../../api";
 
 function Product() {
-  const navigate = useNavigate()
-  const params=useParams()
-  const products=useSelector(state=>state.Products)
-  const data=products.find((product)=>(product._id==params.id))
-  const user = JSON.parse(localStorage.getItem('profile'))
-  console.log("this is user", user)
-  const [reviewTitle, setReviewTitle]=useState('')
-  const [comment, setComment]=useState('')
-  const [model, setModel]=useState(null)
+  const navigate = useNavigate();
+  const params = useParams();
+  const products = useSelector((state) => state.Products);
+  const user = JSON.parse(localStorage.getItem("profile"));
+  console.log("this is user", user);
+  const [reviewTitle, setReviewTitle] = useState("");
+  const [comment, setComment] = useState("");
+  const [model, setModel] = useState(null);
+  const [data, setData] = useState({});
 
-  const commentChange=(e)=>
-  {
-    setComment(e.target.value)
-  }
+  const commentChange = (e) => {
+    setComment(e.target.value);
+  };
 
-  const reviewTitleChange=(e)=>
-  {
-    setReviewTitle(e.target.value)
-  }
+  const reviewTitleChange = (e) => {
+    setReviewTitle(e.target.value);
+  };
 
-  const submitReview=async (e)=>
-  {
-    e.preventDefault()
-    console.log(comment)
-    if (comment)
-    {
-      if (model)
-      {
-          await model.classify(comment).then(predictions=>{
-            console.log(predictions)
-            var result=0
-            for(let i=0;i<predictions.length;i++){
-              if(predictions[i].results[0].match===true){
-                  result+=1;
-              }
+  const submitReview = async (e) => {
+    e.preventDefault();
+    console.log(comment);
+    if (comment) {
+      if (model) {
+        await model.classify(comment).then((predictions) => {
+          console.log(predictions);
+          var result = 0;
+          for (let i = 0; i < predictions.length; i++) {
+            if (predictions[i].results[0].match === true) {
+              result += 1;
             }
-            console.log(result)
-                    if(result===0){
-                        const rdata = {title: reviewTitle, content: comment, rating: 3, userId: user.result[0]._id, productId: params.id}
-                        const {data} = addReview(rdata)
-                        alert("Review added successfully, please refresh to see")
-                        console.log('Comment added')
-                    }else if(result===1){
-                      const rdata = {title: reviewTitle, content: comment, rating: 3, user: user.result[0]._id}
-                      alert('Please refrain from being toxic the next time')  
-                      const {data}=addReview(rdata)
-                      
-                      
-                        
-                    }else{
-                        alert('Comment has been removed due to being toxic')
-                    }
-
-          })
+          }
+          console.log(result);
+          if (result === 0) {
+            const rdata = {
+              title: reviewTitle,
+              content: comment,
+              rating: 3,
+              userId: user.result[0]._id,
+              productId: params.id,
+            };
+            const { data } = addReview(rdata);
+            alert("Review added successfully, please refresh to see");
+            console.log("Comment added");
+          } else if (result === 1) {
+            const rdata = {
+              title: reviewTitle,
+              content: comment,
+              rating: 3,
+              user: user.result[0]._id,
+            };
+            alert("Please refrain from being toxic the next time");
+            const { data } = addReview(rdata);
+          } else {
+            alert("Comment has been removed due to being toxic");
+          }
+        });
       }
     }
-  }
+  };
 
-  useEffect(()=>
-  {
-    toxicity.load(0.8).then(mod=>setModel(mod));
-  }, [])
+  useEffect(() => {
+    toxicity.load(0.8).then((mod) => setModel(mod));
+    const temp = products.find((product) => product._id == params.id);
+    if (temp) {
+      setData(temp);
+    } else {
+      fillOne();
+    }
+  }, []);
 
+  const fillOne = async () => {
+    try {
+      const res = await getAProduct(params.id);
+      setData(res.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
-  const handleDirectBuy = ()=>{
-    navigate('/checkout', {state:{shoppingCart:[data], total:data.price}})
-  }
+  const handleDirectBuy = () => {
+    navigate("/checkout", {
+      state: { shoppingCart: [data], total: data.price },
+    });
+  };
 
-  const handleAddToCart = ()=>{
-
-  }
-
+  const handleAddToCart = () => {};
 
   return (
     <div className="flex justify-start flex-col items-start w-screen md:h-screen md:flex-row">
       <div className="w-full h-full flex justify-center items-center flex-col md:w-2/5">
         <img className="w-full h-5/6" src={data.image}></img>
         <div className="w-full flex justify-center items-center">
-          {user ? <div>
-                <button onClick={handleDirectBuy} className="bg-yellow-700 px-6 py-2 rounded-sm text-white m-3 hover:bg-yellow-900">
+          {user ? (
+            <div>
+              <button
+                onClick={handleDirectBuy}
+                className="bg-yellow-700 px-6 py-2 rounded-sm text-white m-3 hover:bg-yellow-900"
+              >
                 Buy Now
               </button>
-              <button onClick={handleAddToCart} className="bg-blue-600 px-6 py-2 rounded-sm m-3 text-white hover:bg-blue-800">
+              <button
+                onClick={handleAddToCart}
+                className="bg-blue-600 px-6 py-2 rounded-sm m-3 text-white hover:bg-blue-800"
+              >
                 Add To Cart
               </button>
-            </div> : 
-              <button onClick={()=>navigate('/signIn')} className="bg-yellow-600 px-6 py-2 rounded-sm m-3 text-white hover:bg-yellow-800">
-                Login to Continue
-              </button>}
+            </div>
+          ) : (
+            <button
+              onClick={() => navigate("/signIn")}
+              className="bg-yellow-600 px-6 py-2 rounded-sm m-3 text-white hover:bg-yellow-800"
+            >
+              Login to Continue
+            </button>
+          )}
         </div>
       </div>
       <div className="md:w-3/5 w-full md:h-full mt-10 overflow-hidden overflow-x-hidden md:overflow-x-hidden md:overflow-scroll ">
@@ -132,10 +158,14 @@ function Product() {
             className="min-w-full border-black border p-1 mt-5"
             placeholder="Content"
           ></textarea>
-          {user && <button onClick={submitReview} className="mt-3 bg-blue-600 hover:bg-blue-900 px-6 py-2 rounded-sm text-white">
-            Submit
-          </button>}
-
+          {user && (
+            <button
+              onClick={submitReview}
+              className="mt-3 bg-blue-600 hover:bg-blue-900 px-6 py-2 rounded-sm text-white"
+            >
+              Submit
+            </button>
+          )}
 
           {data.reviews &&
             data.reviews.map((item) => {
