@@ -13,6 +13,7 @@ let storeCities = []
 let countryISO = ''
 
 const CheckoutAddress = ({selectedCSC, setSelectedCSC}) => {
+    const user = JSON.parse(localStorage.getItem('profile'))
     const [value,setValue]  = useState(selectedCSC.storeName)
     const [value2,setValue2]  = useState(selectedCSC.streetAddress)
 
@@ -56,8 +57,18 @@ const CheckoutAddress = ({selectedCSC, setSelectedCSC}) => {
     return (
         <div >
             <div>
-                <span>yaha pe user ka current address hoga</span>
+                product display
             </div>
+            <div className="flex flex-wrap flex-start">
+
+            <p  className="mt-2 px-4 text-xl font-bold text-gary-900">Delivery Address</p>
+            <div >
+                <p  className="mt-2 px-4 text-lg font-normal text-gray-800">{user.result.address.streetAddress}</p>
+                <p  className="mt-2 px-4 text-lg font-normal text-gray-800">{user.result.address.city}, {user.result.address.state}</p>
+                <p  className="mt-2 px-4 text-lg font-normal text-gray-800">{user.result.address.country}</p>
+            </div>
+            </div>
+            <p className="mt-2 px-4 text-xl font-bold text-gary-900">Change Address</p>
             <FormControl sx={{ px: 1,mt: 3, minWidth: 120 }} className="m-1" fullWidth>
                 <TextField  label="Street Address" variant="outlined"  value={value2} fullWidth onChange={handeChangeStreetAddress}/>
             </FormControl>

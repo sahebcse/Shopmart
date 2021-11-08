@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
-import star from "../../star.png";-
+import star from "../../star.png";
+import {useNavigate} from 'react-router'
   
 import * as toxicity from '@tensorflow-models/toxicity'
 import '@tensorflow/tfjs'
@@ -9,11 +10,12 @@ import {addReview} from '../../api/index'
 import { getAProduct } from "../../api";
 
 function Product() {
+  const navigate = useNavigate()
   const params=useParams()
   const products=useSelector(state=>state.Products)
   const data=products.find((product)=>(product._id==params.id))
   const user = JSON.parse(localStorage.getItem('profile'))
-
+  console.log("this is user", user)
   const [reviewTitle, setReviewTitle]=useState('')
   const [comment, setComment]=useState('')
   const [model, setModel]=useState(null)
@@ -72,26 +74,13 @@ function Product() {
   }, [])
 
 
-  const params = useParams();
-  const products = useSelector((state) => state.Products);
-  const [data, setData] = useState({});
+  const handleDirectBuy = ()=>{
+    navigate('/checkout', {state:{shoppingCart:[data], total:data.price}})
+  }
 
-  const fillData = async () => {
-    const res = await getAProduct(params.id);
-    const dat = res.data;
-    setData(dat);
-  };
+  const handleAddToCart = ()=>{
 
-  React.useEffect(() => {
-    let temp = products.find((product) => product._id == params.id);
-    console.log(temp);
-    if (temp) {
-      console.log("Found");
-      setData(temp);
-    } else {
-      fillData();
-    }
-  }, []);
+  }
 
 
   return (
@@ -99,12 +88,17 @@ function Product() {
       <div className="w-full h-full flex justify-center items-center flex-col md:w-2/5">
         <img className="w-full h-5/6" src={data.image}></img>
         <div className="w-full flex justify-center items-center">
-          <button className="bg-yellow-700 px-6 py-2 rounded-sm text-white m-3 hover:bg-yellow-900">
-            Buy Now
-          </button>
-          <button className="bg-blue-600 px-6 py-2 rounded-sm m-3 text-white hover:bg-blue-800">
-            Add To Cart
-          </button>
+          {user ? <div>
+                <button onClick={handleDirectBuy} className="bg-yellow-700 px-6 py-2 rounded-sm text-white m-3 hover:bg-yellow-900">
+                Buy Now
+              </button>
+              <button onClick={handleAddToCart} className="bg-blue-600 px-6 py-2 rounded-sm m-3 text-white hover:bg-blue-800">
+                Add To Cart
+              </button>
+            </div> : 
+              <button onClick={()=>navigate('/signIn')} className="bg-yellow-600 px-6 py-2 rounded-sm m-3 text-white hover:bg-yellow-800">
+                Login to Continue
+              </button>}
         </div>
       </div>
       <div className="md:w-3/5 w-full md:h-full mt-10 overflow-hidden overflow-x-hidden md:overflow-x-hidden md:overflow-scroll ">
@@ -138,9 +132,9 @@ function Product() {
             className="min-w-full border-black border p-1 mt-5"
             placeholder="Content"
           ></textarea>
-          <button onClick={submitReview} className="mt-3 bg-blue-600 hover:bg-blue-900 px-6 py-2 rounded-sm text-white">
+          {user && <button onClick={submitReview} className="mt-3 bg-blue-600 hover:bg-blue-900 px-6 py-2 rounded-sm text-white">
             Submit
-          </button>
+          </button>}
 
 
           {data.reviews &&

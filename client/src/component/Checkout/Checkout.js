@@ -10,10 +10,11 @@ const steps = ['Select Address', 'Payment Gateway'];
 
 const Checkout = () => {
     const location = useLocation()
+    const user = JSON.parse(localStorage.getItem('profile'))
     const products = location.state?.shoppingCart
     const total = location.state?.total
     console.log("prod",products)
-    const [selectedCSC, setSelectedCSC] = useState({country:'', state:'', city:'', streetAdress:'', storeName:''})
+    const [selectedCSC, setSelectedCSC] = useState({country:user.result.address.country, state:user.result.address.state, city:user.result.address.city, streetAdress:user.result.address.streetAddress})
     const classes = useStyles()
     const [activeStep, setActiveStep] = useState(0);
         const Form = ()=> {
