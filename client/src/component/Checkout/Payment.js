@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-const Checkout = ({shoppingCart}) => {
+const Checkout = ({shoppingCart, totalPrice, isCart, selectedCSC}) => {
     const classes=useStyles()
     console.log("here")
     const navigate = useNavigate()
@@ -30,18 +30,8 @@ const Checkout = ({shoppingCart}) => {
     const [disabled, setDisabled] = useState(true);
     const [succeeded, setSucceeded] = useState(false);
     const [processing, setProcessing] = useState("")
-    const [totalPrice, setTotalPrice] = useState(0);
     const [clientSecret, setClientSecret] = useState(null)
 
-    useEffect(() =>{
-        console.log("shopping cart")
-        var newTotal = 0;
-        for(let i = 0; i < shoppingCart.length; i++) {
-            newTotal += parseInt(shoppingCart[i].price);
-        }
-        setTotalPrice(newTotal);
-
-    },[])
 
     useEffect(() =>{
         const getClientSecret = async ()=>{
@@ -67,7 +57,7 @@ const Checkout = ({shoppingCart}) => {
             setSucceeded(true)
             setError(null)
             setProcessing(false);
-            const data = {userEmail :currUser?.result.email, products:shoppingCart}
+            const data = {userEmail :currUser?.result.email, products:shoppingCart, address:selectedCSC, cart:isCart}
             dispatch(productOrdered(data))
             navigate('/Orders')
         })

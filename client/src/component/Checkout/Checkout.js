@@ -17,16 +17,17 @@ const Checkout = () => {
     const products = location.state?.shoppingCart
     console.log("prodi",products)
     const total = location.state?.total
+    const isCart = location.state?.isCart
     console.log("prod",products)
-    const [selectedCSC, setSelectedCSC] = useState({country:user.result.address.country, state:user.result.address.state, city:user.result.address.city, streetAdress:user.result.address.streetAddress})
+    const [selectedCSC, setSelectedCSC] = useState({country:user?.result?.address?.country, state:user?.result?.address?.state, city:user?.result?.address?.city, streetAdress:user?.result?.address?.streetAddress})
     const classes = useStyles()
     const [activeStep, setActiveStep] = useState(0);
         const Form = ()=> {
             switch (activeStep) {
                 case 0:
-                    return <CheckoutAddress selectedCSC={selectedCSC}   />
+                    return <CheckoutAddress setSelectedCSC={setSelectedCSC} selectedCSC={selectedCSC}   />
                 case 1:
-                    return <Payment shoppingCart={products} totalPrice={total}/>
+                    return <Payment selectedCSC={selectedCSC} shoppingCart={products} totalPrice={total} isCart={isCart} />
             }
         }
 

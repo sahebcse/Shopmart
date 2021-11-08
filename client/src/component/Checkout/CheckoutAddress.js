@@ -63,9 +63,9 @@ const CheckoutAddress = ({selectedCSC, setSelectedCSC}) => {
 
             <p  className="mt-2 px-4 text-xl font-bold text-gary-900">Delivery Address</p>
             <div >
-                <p  className="mt-2 px-4 text-lg font-normal text-gray-800">{user.result.address.streetAddress}</p>
-                <p  className="mt-2 px-4 text-lg font-normal text-gray-800">{user.result.address.city}, {user.result.address.state}</p>
-                <p  className="mt-2 px-4 text-lg font-normal text-gray-800">{user.result.address.country}</p>
+                <p  className="mt-2 px-4 text-lg font-normal text-gray-800">{user?.result?.address?.streetAddress}</p>
+                <p  className="mt-2 px-4 text-lg font-normal text-gray-800">{user?.result?.address?.city}, {user?.result?.address?.state}</p>
+                <p  className="mt-2 px-4 text-lg font-normal text-gray-800">{user?.result?.address?.country}</p>
             </div>
             </div>
             <p className="mt-2 px-4 text-xl font-bold text-gary-900">Change Address</p>

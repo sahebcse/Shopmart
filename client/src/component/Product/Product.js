@@ -91,7 +91,7 @@ function Product() {
 
   const handleDirectBuy = () => {
     navigate("/checkout", {
-      state: { shoppingCart: [data], total: data?.price },
+      state: { shoppingCart: [data], total: data?.price , isCart:false},
     });
   };
 
