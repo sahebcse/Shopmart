@@ -16,11 +16,11 @@ const AddProduct = () => {
     const [imageHash,setImageHash] = useState([]) 
     const [addImages,setAddImages] = useState(true)
     const user = JSON.parse(localStorage.getItem('profile'))
-
+    console.log(user)
     const handleAddNewProduct = (e) =>{
         e.preventDefault()
         console.log(user.result)
-        dispatch(addNewProduct({id:user.result._id,productData:newProductData}))
+        dispatch(addNewProduct({id:user.result[0]._id,productData:newProductData}))
 
     }
 
