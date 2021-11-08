@@ -1,8 +1,9 @@
-# Shopmart
+
   
+  ![AthenaHack Poster](AthenaHack.png)
     
     
-    
+# Shopmart
     E-Commerce Site for Online Shopping
 
     AthenaHack 2021    
