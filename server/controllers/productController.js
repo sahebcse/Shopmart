@@ -201,4 +201,19 @@ const getCategoriesList=(req, res)=>
     })
 }
 
-module.exports={createProduct, getProductById, editProductById, getAllProducts, deleteProductById, getProductsByMerchant, addReview, searchProducts, getProductsByCategory, getCategoriesList}
+
+const deleteAllProducts=async (req, res)=>
+{
+    try
+    {
+        await Product.deleteMany()
+        client.del('home')
+
+    }
+    catch(error)
+    {
+        console.log(error)
+    }
+}
+
+module.exports={createProduct, getProductById, editProductById, getAllProducts, deleteProductById, getProductsByMerchant, addReview, searchProducts, getProductsByCategory, getCategoriesList, deleteAllProducts}

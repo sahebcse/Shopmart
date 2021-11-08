@@ -37,10 +37,15 @@ export const getAllProducts = () => axios.get(`${URL}/products`);
 
 export const getStore = (id) => axios.get(`${URL}/merchant/${id}`);
 
-export const searchProducts= (data) => axios.get(`${URL}/product/search/${data}`)
+export const searchProducts = (data) =>
+  axios.get(`${URL}/product/search/${data}`);
 
-export const addReview=(sendData) => axios.post(`${URL}/product/${sendData.productId}/review`, sendData)
+export const addReview = (sendData) =>
+  axios.post(`${URL}/product/${sendData.productId}/review`, sendData);
 
 export const getAProduct = (id) => axios.get(`${URL}/product/${id}`);
 
-export const getCategoyPro = (cat) => axios.get(`${URL}/products/category/${cat}`);
+export const getCategoyPro = (cat) =>
+  axios.get(`${URL}/products/category/${cat}`);
+
+export const getAllStores = () => axios.get(`${URL}/stores`);

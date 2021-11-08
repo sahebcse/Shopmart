@@ -22,6 +22,7 @@ import StoreView from "./component/Store/StoreView";
 import SearchResults from "./component/Views/SearchResults";
 import CategoryResults from "./component/Views/CategoryResults";
 import UserLogin from "./component/Forms/UserLogin"
+import Stores from "./component/Store/Stores";
 
 function App() {
   const dispatch = useDispatch();
@@ -43,6 +44,7 @@ function App() {
           <Route path="/store/:id" element={<StoreView />} />
           <Route path="/search/:query" element={<SearchResults />} />
           <Route path="/category" element={<CategoryResults />} />
+          <Route path='/stores' element={<Stores />} />
         </Routes>
       </Router>
     </div>
