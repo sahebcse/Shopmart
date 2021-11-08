@@ -17,3 +17,10 @@ export const deleteAllCartItems = (sendData)=> axios.delete(`${URL}//users/delet
 export const getUserCartItems = (sendData)=> axios.get(`${URL}/users/getusercart/${sendData.id}`)
 
 export const removeCartItemById = (sendData)=> axios.post(`${URL}/users/removeCartItemById`,sendData)
+
+
+export const getAllProducts= () => axios.get(`${URL}/products`)
+
+export const getStore = (id) => axios.get(`${URL}/merchant/${id}`)
+
+export const searchProducts= (data) => axios.get(`${URL}/product/search/${data}`)
