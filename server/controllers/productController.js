@@ -2,6 +2,9 @@ const Product=require('../models/productModel')
 const Merchant=require('../models/merchantModel')
 const Review=require('../models/reviewModel')
 
+const {client}=require('../utility/redisClient')
+
+
 const createProduct=async (req, res)=>
 {
     try{
@@ -23,8 +26,8 @@ const createProduct=async (req, res)=>
         const merchant=await Merchant.findById(id)
         await merchant.products.addToSet(product._id)
         await merchant.save()
-
         res.status(201).json(product)
+        client.del('home')
         
     }
     catch(error)
@@ -62,6 +65,7 @@ const editProductById=async (req, res)=>
         product.description=productData.description
         await product.save()
         res.json(product)
+        client.del('home')
     }   
     catch(error)
     {
@@ -75,6 +79,8 @@ const getAllProducts=async (req, res)=>
     try{
         const products=await Product.find().populate({path: 'reviews'})
         res.json(products)
+        client.setex('home', 300, JSON.stringify(products))
+
     }
     catch(error)
     {
@@ -121,6 +127,7 @@ const searchProducts=async (req, res)=>
 
         const products=await Product.find({name: new RegExp(name)})
         res.json(products)
+        client.setex(name, 300, JSON.stringify(products))
     }
     catch(error)
     {
@@ -148,6 +155,7 @@ const addReview=async (req, res)=>
         await product.reviews.addToSet(savedReview._id)
         await product.save()
         console.log(product)
+        client.del('home')
     }
     catch(error)
     {
