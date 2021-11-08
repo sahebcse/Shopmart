@@ -38,4 +38,11 @@ export const searchProducts= (data) => axios.get(`${URL}/product/search/${data}`
 export const addReview=(sendData) => axios.post(`${URL}/product/${sendData.productId}/review`, sendData)
 
 export const getAProduct = (id) => axios.get(`${URL}/product/${id}`);
+<<<<<<< HEAD
 
+||||||| merged common ancestors
+=======
+
+export const getCategoyPro = (cat) =>
+  axios.get(`${URL}/products/category/${cat}`);
+>>>>>>> Category Filter
