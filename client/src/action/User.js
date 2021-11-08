@@ -36,3 +36,14 @@ export const addToCart = async (sendData)=>{
         console.log(error.message)
     }
 }
+
+export const productOrdered=(sendData)=>async (dispatch)=>{
+    const {data} = await api.productOrdered(sendData)
+}
+
+export const getClientSecretKey=async (sendData)=>{
+    console.log("secret")
+    const {data} =await api.getClientSecretKey(sendData)
+    console.log(data.clientSecret)
+    return data;
+}
