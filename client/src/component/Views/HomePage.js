@@ -30,7 +30,7 @@ export default function HomePage() {
         </h1>
         <div className="lg:w-1/3 w-1/5 h-1 bg-black animate-pulse"></div>
       </div>
-      <div className="col-span-5 grid md:grid-cols-3 lg:grid-cols-4 gap-3 shadow-xl margin-2">
+      <div className="col-span-5 grid md:grid-cols-3 lg:grid-cols-4 gap-3 margin-2">
         {products.map((product) => (
           <ProductTile
             name={product.name}
