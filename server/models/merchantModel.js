@@ -27,7 +27,7 @@ const merchantSchema=new Schema({
     bankDetails:{
         type:Object
     },
-    profits:Object,
+    profits:Number,
     storeName: {
         type: String,
         required: true

@@ -4,10 +4,19 @@ import { CssBaseline, Paper, Stepper, Step, StepLabel, Typography, CircularProgr
 
 import LoginForm from './LoginForm'
 import UserAddress from './UserAddress'
+import { useNavigate } from 'react-router';
 
 const steps = ['Address',  'Login'];
 
 const UserLogin = () => {
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        const userSigned  = JSON.parse(localStorage.getItem('profile'))
+        if(userSigned)
+        navigate('/')
+        
+    })
     const [isSignin, setIsSignin] = useState(false)
     const [selectedCSC, setSelectedCSC] = useState({country:'', state:'', city:'', streetAddress:''})
     const classes = useStyles()

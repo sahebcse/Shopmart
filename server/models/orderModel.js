@@ -10,10 +10,7 @@ const orderSchema=new Schema({
     customer: {
         type: Schema.Types.ObjectId, ref: 'User'
     },
-    address: {
-        type: String,
-        default: ''
-    },
+    address: Object,
     amount: {
         type: Number, 
         required: true

@@ -1,7 +1,7 @@
 const express=require('express')
 const router=express.Router()
 
-const {createUser, getUserById, getAllUsers, deleteAllCartItems, getUserCartItems, removeCartItemById,addToCart,userLogin} = require('../controllers/userController')
+const {createUser, getUserById, getAllUsers, deleteAllCartItems, getUserCartItems, removeCartItemById,addToCart,userLogin, getClientSecretKey,productOrdered} = require('../controllers/userController')
 
 router.post('/user/signup', createUser)
 
@@ -18,6 +18,10 @@ router.post('/users/removeCartItemById', removeCartItemById)
 router.get('/users/getUserCartItems/:id', getUserCartItems)
 
 router.post('/users/addToCart', addToCart)
+
+router.post('/user/getClientSecretKey', getClientSecretKey)
+
+router.post('/user/productOrdered', productOrdered)
 
 
 module.exports=router
