@@ -1,33 +1,13 @@
 import React, { useState } from "react";
-import star from "../star.png";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router";
+import star from "../../star.png";
 
 function Product() {
-  const data = {
-    name: "Redmi Note 7s",
-    image: "https://m.media-amazon.com/images/I/31+L+LdZefL._SY300_SX300_.jpg",
-    brand: "Redmi",
-    category: "SmartPhone",
-    price: 15000,
-    description: "Slimmest & Lightest 5G Smartphone of 2021",
-    rating: 3,
-    stock: 10,
-    reviews: [
-      {
-        user: "Some1",
-        title: "Good Phone",
-        content:
-          "Something kjsdh ksjad sjkch skdjc kjsd ckj djvbdj bkj dkjfv dkjfv kjdb .  jksf kjsdh kjsd ckjs v.",
-        rating: 3,
-      },
-      {
-        user: "Some2",
-        title: "Bad Phone",
-        content:
-          "Something kjsdh ksjad sjkch skdjc kjsd ckj djvbdj bkj dkjfv dkjfv kjdb .  jksf kjsdh kjsd ckjs v.",
-        rating: 2,
-      },
-    ],
-  };
+  const params=useParams()
+  const products=useSelector(state=>state.Products)
+  const data=products.find((product)=>(product._id==params.id))
+  console.log(data)
 
   return (
     <div className="flex justify-start flex-col items-start w-screen md:h-screen md:flex-row">
@@ -99,3 +79,32 @@ function Product() {
 }
 
 export default Product;
+
+
+/*
+const data = {
+    name: "Redmi Note 7s",
+    image: "https://m.media-amazon.com/images/I/31+L+LdZefL._SY300_SX300_.jpg",
+    brand: "Redmi",
+    category: "SmartPhone",
+    price: 15000,
+    description: "Slimmest & Lightest 5G Smartphone of 2021",
+    rating: 3,
+    stock: 10,
+    reviews: [
+      {
+        user: "Some1",
+        title: "Good Phone",
+        content:
+          "Something kjsdh ksjad sjkch skdjc kjsd ckj djvbdj bkj dkjfv dkjfv kjdb .  jksf kjsdh kjsd ckjs v.",
+        rating: 3,
+      },
+      {
+        user: "Some2",
+        title: "Bad Phone",
+        content:
+          "Something kjsdh ksjad sjkch skdjc kjsd ckj djvbdj bkj dkjfv dkjfv kjdb .  jksf kjsdh kjsd ckjs v.",
+        rating: 2,
+      },
+    ],
+  }; */
