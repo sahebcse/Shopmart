@@ -50,6 +50,11 @@ const Navbar = (props) => {
     dispatch(loadAllProducts());
   };
 
+  const openStores= () =>
+  {
+    navigate('/stores')
+  }
+
   const [navbarOpen, setNavbarOpen] = React.useState(false);
 
   return (
@@ -454,6 +459,22 @@ const Navbar = (props) => {
               </a>
             </li>
           </ul>
+        </div>
+        <div class="dropdown relative z-40 inline-block mx-2">
+        <button onClick={openStores} class=" text-gray-700 font-normal inline-flex items-center">
+            <span class="text-white mr-1">Stores</span>
+            <svg
+              class="fill-current h-4 w-4"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+            >
+              <path
+                color="white"
+                d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+              />{" "}
+            </svg>
+          </button>
+
         </div>
       </div>
     </>

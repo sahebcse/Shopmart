@@ -39,3 +39,5 @@ export const getAProduct = (id) => axios.get(`${URL}/product/${id}`);
 
 export const getCategoyPro = (cat) =>
   axios.get(`${URL}/products/category/${cat}`);
+
+export const getAllStores = () => axios.get(`${URL}/stores`);
