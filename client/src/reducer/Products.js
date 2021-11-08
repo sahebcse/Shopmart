@@ -5,7 +5,7 @@ const Products = (products=[],action)=>{
         case LOAD_ALL_PRODUCTS :
             return action.payload
         
-        
+    
         
         default:
             return products

@@ -32,4 +32,10 @@ export const getStore = (id) => axios.get(`${URL}/merchant/${id}`);
 export const searchProducts = (data) =>
   axios.get(`${URL}/product/search/${data}`);
 
+
+export const searchProducts= (data) => axios.get(`${URL}/product/search/${data}`)
+
+export const addReview=(sendData) => axios.post(`${URL}/product/${sendData.productId}/review`, sendData)
+
 export const getAProduct = (id) => axios.get(`${URL}/product/${id}`);
+
