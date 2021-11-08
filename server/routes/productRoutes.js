@@ -23,4 +23,6 @@ router.get('/products/category/:category', getProductsByCategory)
 
 router.get('/categories/list', getCategoriesList)
 
+
+
 module.exports=router

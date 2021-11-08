@@ -1,6 +1,8 @@
 const Product=require('../models/productModel')
 const Merchant=require('../models/merchantModel')
 const Review=require('../models/reviewModel')
+const faker=require('faker')
+const axios=require('axios')
 
 const createProduct=async (req, res)=>
 {
@@ -179,5 +181,8 @@ const getCategoriesList=(req, res)=>
         }
     })
 }
+
+
+
 
 module.exports={createProduct, getProductById, editProductById, getAllProducts, deleteProductById, getProductsByMerchant, addReview, searchProducts, getProductsByCategory, getCategoriesList}

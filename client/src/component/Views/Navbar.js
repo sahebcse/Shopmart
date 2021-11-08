@@ -8,11 +8,13 @@ import { Link } from "react-router-dom";
 import { NotificationManager } from "react-notifications";
 
 import logo from "./logo.jpg";
+import { SearchIcon } from "@heroicons/react/outline";
 
 const Navbar = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("profile"));
+  const [query, setQuery]=useState('')
 
   const handleLogin = () => {
     navigate("/signIn");
@@ -28,6 +30,17 @@ const Navbar = (props) => {
   const hanldeOpenAllStreams = () => {
     navigate("/streams");
   };
+
+  const handleSearchChange=(e)=>
+  {
+    setQuery(e.target.value)
+  }
+
+  const handleSearchSubmit=(e)=>
+  {
+      console.log(query)
+      navigate(`/search/${query}`)
+  }
 
   const [navbarOpen, setNavbarOpen] = React.useState(false);
 
@@ -66,6 +79,10 @@ const Navbar = (props) => {
             ></i>
           </button>
         </div>
+        <div className="w-2/5">
+        <input onChange={handleSearchChange} className="border-2 w-3/4 border-gray-200" /> <SearchIcon onClick={handleSearchSubmit} className="h-6 w-6 inline" />
+        </div>
+        
         <div
           className={
             "lg:flex flex-grow items-center bg-white lg:bg-transparent lg:shadow-none" +

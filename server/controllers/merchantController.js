@@ -48,4 +48,18 @@ const loginMerchant=async (req, res)=> {
     }
 }
 
-module.exports={createMerchant, getMerchantById, loginMerchant}
+const getAllMerchants=async (req, res)=>
+{
+    try
+    {
+        const merchants=await Merchant.find().populate('products')
+        res.json(merchants)
+    }
+    catch(error)
+    {
+        console.log(error)
+        res.status(404).json({message: "Merchants not found"})
+    }
+}
+
+module.exports={createMerchant, getMerchantById, loginMerchant, getAllMerchants}

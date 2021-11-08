@@ -1,5 +1,5 @@
 import * as api from '../api'
-import {AUTH, LOGOUT} from '../static/ReducerConstants'
+import {AUTH, LOGOUT, LOAD_ALL_PRODUCTS} from '../static/ReducerConstants'
 
 export const merchantSignup = (sendData,navigate)=> async (dispatch) => {
     try {
@@ -21,3 +21,4 @@ export const merchantLogin = (sendData, navigate) => async (dispatch) => {
         console.log(error.message)
     }
 }
+
