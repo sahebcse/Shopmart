@@ -54,5 +54,50 @@ const getAllUsers=async (req, res)=>
     }
 }
 
+const deleteAllCartItems=async (req, res)=>
+{
+    try{
+        const users=await User.findById(req.params.id)
+        users.cart = []
+        await users.save()
+        res.status(200).json({message: "Cart deleted successfully"})
+    }
+    catch(error)
+    {
+        console.log(error)
+        res.status(404).json({message: "Cart not deleted"})
+    }
+}
 
-module.exports={createUser, getUserById, getAllUsers}
+const getUserCartItems=async (req, res)=>
+{
+    try{
+        const users=await User.findById(req.params.id).populate('cart')
+        res.status(200).json(users.cart)
+    }
+    catch(error)
+    {
+        console.log(error)
+        res.status(404).json({message: "Cart not deleted"})
+    }
+}
+
+const removeCartItemById=async (req, res)=>
+{
+    try{
+        const {userId, itemId} = req.body
+        const users=await User.findById(userId)
+        const newcart = users.cart.filter(cartItem => cartItem.id !== itemId)
+        users.cart = newcart
+        await users.save()
+        res.status(200).json(users.cart)
+    }
+    catch(error)
+    {
+        console.log(error)
+        res.status(404).json({message: "Cart not deleted"})
+    }
+}
+
+
+module.exports={createUser, getUserById, getAllUsers, deleteAllCartItems, getUserCartItems, removeCartItemById}
