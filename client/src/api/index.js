@@ -53,3 +53,5 @@ export const getCategoyPro = (cat) =>
   axios.get(`${URL}/products/category/${cat}`);
 
 export const getAllStores = () => axios.get(`${URL}/stores`);
+
+export const RefSend = (sendData) => axios.post(`${URL}/useReferral`, sendData)

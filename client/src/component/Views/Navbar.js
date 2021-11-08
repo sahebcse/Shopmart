@@ -125,6 +125,13 @@ const Navbar = (props) => {
                 >
                   Orders
                 </button>
+                {user?(<button
+                  className="px-2 py-1 mr-2 bg-red-300 text-indigo-800 hover:bg-blue-500 hover:text-white rounded"
+                  onClick={() => navigate('/referral')}
+                >
+                  Referals
+                </button>):<span></span>}
+                
                 {user ? (
                   <button
                     className="px-2 py-1 mr-2 bg-green-300 text-indigo-800 hover:bg-green-500 hover:text-white rounded"

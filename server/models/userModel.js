@@ -18,6 +18,14 @@ const userSchema=new Schema({
     email: String,
     cart: [{type: Schema.Types.ObjectId, ref: 'Product'}],
     address: Object,
+    coinBalance: {
+        type: Number,
+        default: 100
+    },
+    usedRef: {
+        type: Boolean,
+        default: false
+    }
 })
 
 const User=mongoose.model('User', userSchema)
