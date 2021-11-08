@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import star from "../../star.png";
-import {useNavigate} from 'react-router'
-  
-import * as toxicity from '@tensorflow-models/toxicity'
-import '@tensorflow/tfjs'
-import {addReview} from '../../api/index'
+import { useNavigate } from "react-router";
+
+import * as toxicity from "@tensorflow-models/toxicity";
+import "@tensorflow/tfjs";
+import { addReview } from "../../api/index";
 import { getAProduct, addToCart } from "../../api";
 
 function Product() {
@@ -68,26 +68,41 @@ function Product() {
         });
       }
     }
-  }
+  };
 
-  useEffect(()=>
-  {
-    toxicity.load(0.8).then(mod=>setModel(mod));
-  }, [])
+  useEffect(() => {
+    toxicity.load(0.8).then((mod) => setModel(mod));
+    const temp = products.find((product) => product._id == params.id);
+    if (temp) {
+      setData(temp);
+    } else {
+      fillOne();
+    }
+  }, []);
 
+  const fillOne = async () => {
+    try {
+      const res = await getAProduct(params.id);
+      setData(res.data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
-  const handleDirectBuy = ()=>{
-    navigate('/checkout', {state:{shoppingCart:[data], total:data?.price}})
-  }
+  const handleDirectBuy = () => {
+    navigate("/checkout", {
+      state: { shoppingCart: [data], total: data?.price },
+    });
+  };
 
-  const handleAddToCart = ()=>{
-      addToCart({id:data?._id, userId:user?.result?._id})
-  }
+  const handleAddToCart = () => {
+    addToCart({ id: data?._id, userId: user?.result?._id });
+  };
 
   return (
     <div className="flex justify-start flex-col items-start w-screen md:h-screen md:flex-row">
       <div className="w-full h-full flex justify-center items-center flex-col md:w-2/5">
-        <img className="w-full h-5/6" src={data?.image}></img>
+        <img className="w-full h-5/6 object-contain" src={data?.image}></img>
         <div className="w-full flex justify-center items-center">
           {user ? (
             <div>
