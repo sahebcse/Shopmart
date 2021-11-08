@@ -27,3 +27,12 @@ export const getUserCartItems = async (sendData)=>{
         console.log(error.message)
     }
 }
+
+export const addToCart = async (sendData)=>{
+    try {
+        const {data} = await api.addToCart(sendData)
+        return data
+    } catch (error) {
+        console.log(error.message)
+    }
+}

@@ -3,26 +3,38 @@ const User=require('../models/userModel')
 
 const createUser=async (req, res)=>
 {
-    const user = await User.findOne({googleId:req.body.googleId});
-    if(user){
-        console.log('login', user)
-        return res.status(201).json(user);
-    }
-
-    else
+    try
     {
-        
-        const tempUser=await User.create({
-        name: req.body.name,
-        email: req.body.email,
-        googleId:req.body.googleId,
-        profilePic:req.body.imageUrl,
-        cart: []
+        const {result, address} = req.body
+        console.log(address)
+        const user = await User.create({
+            name:result.name,
+            email:result.email,
+            profilePic:result.imageUrl,
+            address:address
         })
-        console.log(tempUser)
-        res.status(200).json({user: tempUser})
+        console.log(user)
+        res.status(200).json(user)
+
+    }
+    catch(error)
+    {
+        console.log(error)
+        res.status(403).json({message:"unable to create user account at the moment"})
     }
 }
+
+const userLogin=async (req, res)=> {
+    try {
+        const merchant = await User.find({email:req.body.email}).populate('cart')
+        console.log("login",merchant)
+        res.status(200).json(merchant)
+    } catch (error) {
+        console.log(error.message)
+        res.status(404).json({message:"user not found"})
+    }
+}
+
 
 const getUserById=async (req, res)=>
 {
@@ -99,5 +111,23 @@ const removeCartItemById=async (req, res)=>
     }
 }
 
+const addToCart=async (req, res)=>
+{
+    try{
+        const {id, userId} = req.body
+        const users=await User.findById(userId)
+        const newcart = users.cart
+        newcart.push(id)
+        users.cart = newcart
+        await users.save()
+        res.status(200).json(users.cart)
+    }
+    catch(error)
+    {
+        console.log(error)
+        res.status(404).json({message: "Cart not updated"})
+    }
+}
 
-module.exports={createUser, getUserById, getAllUsers, deleteAllCartItems, getUserCartItems, removeCartItemById}
+
+module.exports={createUser, getUserById, getAllUsers, deleteAllCartItems, getUserCartItems, removeCartItemById, addToCart,userLogin}

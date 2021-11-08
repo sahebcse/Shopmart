@@ -17,11 +17,7 @@ const userSchema=new Schema({
     },
     email: String,
     cart: [{type: Schema.Types.ObjectId, ref: 'Product'}],
-    address: {
-        type: String, 
-        default: ''
-    },
-    password: String
+    address: Object,
 })
 
 const User=mongoose.model('User', userSchema)

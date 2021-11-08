@@ -21,6 +21,7 @@ import { useDispatch } from "react-redux";
 import StoreView from "./component/Store/StoreView";
 import SearchResults from "./component/Views/SearchResults";
 import CategoryResults from "./component/Views/CategoryResults";
+import UserLogin from "./component/Forms/UserLogin"
 import Stores from "./component/Store/Stores";
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/merchant/signup" element={<MerchantSignup />} />
           <Route path="/merchant/:id" element={<MerchantDashBoard />} />
+          <Route path="/signIn" element={<UserLogin/>}/>
           <Route path="/product/:id" element={<Product />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />

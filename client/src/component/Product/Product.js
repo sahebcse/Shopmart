@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import star from "../../star.png";
-import { useNavigate } from "react-router";
-
-import * as toxicity from "@tensorflow-models/toxicity";
-import "@tensorflow/tfjs";
-import { addReview } from "../../api/index";
-import { getAProduct } from "../../api";
+import {useNavigate} from 'react-router'
+  
+import * as toxicity from '@tensorflow-models/toxicity'
+import '@tensorflow/tfjs'
+import {addReview} from '../../api/index'
+import { getAProduct, addToCart } from "../../api";
 
 function Product() {
   const navigate = useNavigate();
@@ -68,39 +68,26 @@ function Product() {
         });
       }
     }
-  };
+  }
 
-  useEffect(() => {
-    toxicity.load(0.8).then((mod) => setModel(mod));
-    const temp = products.find((product) => product._id == params.id);
-    if (temp) {
-      setData(temp);
-    } else {
-      fillOne();
-    }
-  }, []);
+  useEffect(()=>
+  {
+    toxicity.load(0.8).then(mod=>setModel(mod));
+  }, [])
 
-  const fillOne = async () => {
-    try {
-      const res = await getAProduct(params.id);
-      setData(res.data);
-    } catch (e) {
-      console.log(e);
-    }
-  };
 
-  const handleDirectBuy = () => {
-    navigate("/checkout", {
-      state: { shoppingCart: [data], total: data.price },
-    });
-  };
+  const handleDirectBuy = ()=>{
+    navigate('/checkout', {state:{shoppingCart:[data], total:data?.price}})
+  }
 
-  const handleAddToCart = () => {};
+  const handleAddToCart = ()=>{
+      addToCart({id:data?._id, userId:user?.result?._id})
+  }
 
   return (
     <div className="flex justify-start flex-col items-start w-screen md:h-screen md:flex-row">
       <div className="w-full h-full flex justify-center items-center flex-col md:w-2/5">
-        <img className="w-full h-5/6 object-contain" src={data.image}></img>
+        <img className="w-full h-5/6" src={data?.image}></img>
         <div className="w-full flex justify-center items-center">
           {user ? (
             <div>
@@ -129,20 +116,20 @@ function Product() {
       </div>
       <div className="md:w-3/5 w-full md:h-full mt-10 overflow-hidden overflow-x-hidden md:overflow-x-hidden md:overflow-scroll ">
         <div className="p-8 border shadow-md w-full">
-          <h1 className="text-sm opacity-70">{data.category}</h1>
-          <h1 className="text-3xl">{data.name}</h1>
-          <h1>{data.brand}</h1>
+          <h1 className="text-sm opacity-70">{data?.category}</h1>
+          <h1 className="text-3xl">{data?.name}</h1>
+          <h1>{data?.brand}</h1>
           <p className="mt-6 flex justify-items-start items-center">
             <img src={star} className="my-1 mr-1" width="20px" /> Rating:{" "}
-            {data.rating}
+            {data?.rating}
             /5
           </p>
           <p className="text-xl font-semibold mt-2">
-            Price: <span>{data.price}</span>
+            Price: <span>{data?.price}</span>
           </p>
-          <h1 className="mt-6">{data.description}</h1>
+          <h1 className="mt-6">{data?.description}</h1>
           <h1 className="text-sm mt-2 text-green-500">
-            {data.stock} left in stock
+            {data?.stock} left in stock
           </h1>
         </div>
 
@@ -167,8 +154,8 @@ function Product() {
             </button>
           )}
 
-          {data.reviews &&
-            data.reviews.map((item) => {
+          {data?.reviews &&
+            data?.reviews.map((item) => {
               return (
                 <div className="review mt-8">
                   <h1 className="text-sm font-normal opacity-70">

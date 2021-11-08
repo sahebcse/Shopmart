@@ -9,6 +9,12 @@ export const merchantSignup = (sendData) =>
 export const merchantLogin = (sendData) =>
   axios.post(`${URL}/merchant/login`, sendData);
 
+export const userSignup = (sendData) =>
+  axios.post(`${URL}/user/signup`, sendData);
+
+export const userLogin = (sendData) =>
+  axios.post(`${URL}/user/login`, sendData);
+
 export const addNewProduct = (sendData) =>
   axios.post(`${URL}/product`, sendData);
 
@@ -24,6 +30,8 @@ export const getUserCartItems = (sendData) =>
 
 export const removeCartItemById = (sendData) =>
   axios.post(`${URL}/users/removeCartItemById`, sendData);
+
+export const addToCart = (sendData) => axios.post(`${URL}/users/addToCart`,sendData)
 
 export const getAllProducts = () => axios.get(`${URL}/products`);
 
