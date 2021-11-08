@@ -20,7 +20,7 @@ const createProduct=async (req, res)=>
             totalProfit:0
         })
         const merchant=await Merchant.findById(id)
-        merchant.products = [...merchant.products, product._id]
+        await merchant.products.addToSet(product._id)
         await merchant.save()
 
         res.status(201).json(product)

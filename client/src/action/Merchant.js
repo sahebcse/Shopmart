@@ -3,6 +3,8 @@ import {GET_MERCHANT_PRODUCTS,ADD_NEW_PRODUCT} from '../static/ReducerConstants'
 
 export const addNewProduct = (sendData) => async (dispatch) => {
     try {
+        console.log("Adding product")
+        console.log(sendData)
         const {data} = await api.addNewProduct(sendData)
         console.log(data)
         dispatch({type: ADD_NEW_PRODUCT, payload: data})
@@ -17,6 +19,6 @@ export const getMerchantProducts = (sendData) => async (dispatch) => {
         console.log(data)
         dispatch({type:GET_MERCHANT_PRODUCTS, payload:data})
     } catch (error) {
-        console.log(error.message)
+        console.log(error)
     }
 }
