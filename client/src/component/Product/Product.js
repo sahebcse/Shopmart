@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
-import star from "../../star.png";
+import star from "../../star.png";-
+  
 import * as toxicity from '@tensorflow-models/toxicity'
 import '@tensorflow/tfjs'
 import {addReview} from '../../api/index'
+import { getAProduct } from "../../api";
 
 function Product() {
   const params=useParams()
@@ -69,6 +71,29 @@ function Product() {
     toxicity.load(0.8).then(mod=>setModel(mod));
   }, [])
 
+
+  const params = useParams();
+  const products = useSelector((state) => state.Products);
+  const [data, setData] = useState({});
+
+  const fillData = async () => {
+    const res = await getAProduct(params.id);
+    const dat = res.data;
+    setData(dat);
+  };
+
+  React.useEffect(() => {
+    let temp = products.find((product) => product._id == params.id);
+    console.log(temp);
+    if (temp) {
+      console.log("Found");
+      setData(temp);
+    } else {
+      fillData();
+    }
+  }, []);
+
+
   return (
     <div className="flex justify-start flex-col items-start w-screen md:h-screen md:flex-row">
       <div className="w-full h-full flex justify-center items-center flex-col md:w-2/5">
@@ -117,22 +142,24 @@ function Product() {
             Submit
           </button>
 
-          {data.reviews.map((item) => {
-            return (
-              <div className="review mt-8">
-                <h1 className="text-xl font-semibold">{item.title}</h1>
-                <h1 className="flex justify-start items-center">
-                  {" "}
-                  <img
-                    src={star}
-                    className="my-1 mr-1"
-                    width="20px"
-                  /> Rating: {item.rating}/5
-                </h1>
-                <h1>{item.content}</h1>
-              </div>
-            );
-          })}
+
+          {data.reviews &&
+            data.reviews.map((item) => {
+              return (
+                <div className="review mt-8">
+                  <h1 className="text-sm font-normal opacity-70">
+                    {item.user}
+                  </h1>
+                  <h1 className="text-xl font-semibold">{item.title}</h1>
+                  <h1 className="flex justify-start items-center">
+                    {" "}
+                    <img src={star} className="my-1 mr-1" width="20px" />{" "}
+                    Rating: {item.rating}/5
+                  </h1>
+                  <h1>{item.content}</h1>
+                </div>
+              );
+            })}
         </div>
       </div>
     </div>
@@ -140,7 +167,6 @@ function Product() {
 }
 
 export default Product;
-
 
 /*
 const data = {
