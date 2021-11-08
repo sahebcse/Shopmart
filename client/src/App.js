@@ -23,6 +23,7 @@ import SearchResults from "./component/Views/SearchResults";
 import CategoryResults from "./component/Views/CategoryResults";
 import UserLogin from "./component/Forms/UserLogin";
 import Stores from "./component/Store/Stores";
+
 import Referral from "./component/Views/Referral";
 
 import { loadStripe } from "@stripe/stripe-js";
@@ -30,6 +31,11 @@ import { Elements } from "@stripe/react-stripe-js";
 const promise = loadStripe(
   "pk_test_51J8GAsSH4Sh8XwNi3Gw7LEGc44TQTY63b8VdJP4D3fHL30bpHIJKlhL7BKcxex80KPwDZg08Adywy5WTeKLZbngP00FQwvXLWv"
 );
+
+import { loadStripe} from '@stripe/stripe-js'
+import {Elements} from '@stripe/react-stripe-js'
+const promise = loadStripe("pk_test_51J8GAsSH4Sh8XwNi3Gw7LEGc44TQTY63b8VdJP4D3fHL30bpHIJKlhL7BKcxex80KPwDZg08Adywy5WTeKLZbngP00FQwvXLWv")
+
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -46,6 +52,7 @@ function App() {
           <Route path="/signIn" element={<UserLogin />} />
           <Route path="/product/:id" element={<Product />} />
           <Route path="/cart" element={<Cart />} />
+
           <Route
             path="/checkout"
             element={
@@ -54,6 +61,9 @@ function App() {
               </Elements>
             }
           />
+
+          <Route path="/checkout" element={<Elements stripe={promise}><Checkout /></Elements>} />
+
           <Route path="/store/:id" element={<StoreView />} />
           <Route path="/search/:query" element={<SearchResults />} />
           <Route path="/category" element={<CategoryResults />} />

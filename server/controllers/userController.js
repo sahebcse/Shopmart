@@ -139,32 +139,7 @@ const addToCart=async (req, res)=>
     }
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-const useReferral= async (req, res)=>
-{
-    try{
-        const user=await User.findById(req.body.userId)
-        const friend=await User.findById(req.body.friendId)
-        user.usedRef=true
-        user.coinBalance=user.coinBalance+100
-        friend.coinBalance=friend.coinBalance+100
-        friend.usedRef=true
-        await user.save()
-        await friend.save()
-        res.json(user)
-    }
-    catch(error)
-    {
 
-    }
-}
-||||||| merged common ancestors
-=======
-||||||| merged common ancestors
-=======
-<<<<<<< HEAD
->>>>>>> Referral Added
 const getClientSecretKey= async (req, res)=>{
     try {
         console.log('this is working')
@@ -223,12 +198,7 @@ const productOrdered= async (req, res)=>{
     }
 }
 
-<<<<<<< HEAD
->>>>>>> orders
-||||||| merged common ancestors
-=======
-||||||| merged common ancestors
-=======
+
 const useReferral= async (req, res)=>
 {
     try{
@@ -244,28 +214,6 @@ const useReferral= async (req, res)=>
     }
     catch(error)
     {
->>>>>>> Referral Added
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-module.exports={createUser, getUserById, getAllUsers, deleteAllCartItems, getUserCartItems, removeCartItemById, addToCart,userLogin, useReferral}
-||||||| merged common ancestors
-module.exports={createUser, getUserById, getAllUsers, deleteAllCartItems, getUserCartItems, removeCartItemById, addToCart,userLogin}
-=======
-module.exports={createUser, getUserById, getAllUsers, deleteAllCartItems, getUserCartItems, removeCartItemById, addToCart,userLogin, getClientSecretKey, productOrdered}
->>>>>>> orders
-||||||| merged common ancestors
-module.exports={createUser, getUserById, getAllUsers, deleteAllCartItems, getUserCartItems, removeCartItemById, addToCart,userLogin, getClientSecretKey, productOrdered}
-=======
-    }
-}
->>>>>>> Referral Added
+module.exports={createUser, getUserById, getAllUsers, deleteAllCartItems, getUserCartItems, removeCartItemById, addToCart,userLogin, getClientSecretKey, productOrdered, useReferral}
 
-<<<<<<< HEAD
-module.exports={createUser, getUserById, getAllUsers, deleteAllCartItems, getUserCartItems, removeCartItemById, addToCart,userLogin, getClientSecretKey, productOrdered}
-||||||| merged common ancestors
-module.exports={createUser, getUserById, getAllUsers, deleteAllCartItems, getUserCartItems, removeCartItemById, addToCart,userLogin}
-=======
-module.exports={createUser, getUserById, getAllUsers, deleteAllCartItems, getUserCartItems, removeCartItemById, addToCart,userLogin, useReferral}
->>>>>>> Referral Added
->>>>>>> Referral Added
