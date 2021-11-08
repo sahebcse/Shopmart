@@ -8,7 +8,7 @@ const productSchema=new Schema({
         required: true
     },
     image: {
-        type: String,
+        type: [String],
         default: 'https://forestprod.org/global_graphics/default-store-350x350.jpg'
     },
     brand: {
@@ -27,7 +27,9 @@ const productSchema=new Schema({
         type: String,
         default: ''
     },
+    merchant:{type: Schema.Types.ObjectId, ref: 'Merchant'},
     totalSold:Number,
+    totalProfit:Number,
     rating: {type: Number, default: 0},
     stock: {type: Number, default: 1},
     reviews: [{type: Schema.Types.ObjectId, ref: 'Review'}]

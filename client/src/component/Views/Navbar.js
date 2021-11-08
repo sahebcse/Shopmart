@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 
 import { Grid, Button, Typography } from "@material-ui/core";
-import CreateRoomIcon from "@material-ui/icons/RoomOutlined";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";

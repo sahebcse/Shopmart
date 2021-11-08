@@ -1,0 +1,30 @@
+const Categories = [
+    'Mobiles', 
+    'Computers',
+    'TV', 
+    'Appliances', 
+    'Electronics',
+    "Men's Fashion",
+    "Women's Fashion",
+    'Home', 'Kitchen', 
+    'Pets',
+    'Beauty', 
+    'Health', 
+    'Grocery',
+    'Sports', 
+    'Fitness', 
+    'Bags', 
+    'Luggage',
+    'Toys', 
+    'Baby Products',
+    "Kids' Fashion",
+    'Car', 
+    'Motorbike', 
+    'Industrial',
+    'Books',
+    'Movies', 
+    'Music' ,
+    'Video Games'
+]
+
+export default Categories;

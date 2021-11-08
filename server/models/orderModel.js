@@ -29,7 +29,17 @@ const orderSchema=new Schema({
     isDelivered: {
         type: Boolean,
         default: false
-    }
+    },
+    isRefunded: {
+        type: Boolean,
+        default: false
+    },
+    date:{
+        type:Date,
+        default: Date.now()
+    },
+    merchantId :[{type: Schema.Types.ObjectId, ref: 'Merchant'}]
+
 })
 
 const Order=mongoose.model('Order', orderSchema)
