@@ -14,6 +14,7 @@ const createProduct=async (req, res)=>
             category: productData.category,
             price: productData.price,
             description: productData.description,
+            stock: productData.stock,
             merchant:id,
             reviews: [],
             totalSold:0,
@@ -72,7 +73,7 @@ const editProductById=async (req, res)=>
 const getAllProducts=async (req, res)=>
 {
     try{
-        const products=await Product.find()
+        const products=await Product.find().populate({path: 'reviews'})
         res.json(products)
     }
     catch(error)
@@ -131,16 +132,22 @@ const searchProducts=async (req, res)=>
 
 const addReview=async (req, res)=>
 {
+    console.log(req.body)
     try{
         const tempReview=new Review({
-            user: productData.userId,
-            title: productData.title,
-            content: productData.content,
-            rating: productData.rating
+            user: req.body.userId,
+            title: req.body.title,
+            content: req.body.content,
+            rating: req.body.rating
         })
 
         const savedReview=await tempReview.save()
+        console.log(savedReview)
         res.status(201).json(savedReview)
+        const product=await Product.findById(req.body.productId)
+        await product.reviews.addToSet(savedReview._id)
+        await product.save()
+        console.log(product)
     }
     catch(error)
     {

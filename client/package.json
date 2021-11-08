@@ -15,6 +15,8 @@
     "@mui/styled-engine-sc": "^5.0.4",
     "@mui/styles": "^5.0.2",
     "@stripe/react-stripe-js": "^1.6.0",
+    "@tensorflow-models/toxicity": "^1.2.2",
+    "@tensorflow/tfjs": "^3.11.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
