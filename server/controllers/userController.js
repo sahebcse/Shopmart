@@ -9,15 +9,22 @@ const createUser=async (req, res)=>
     try
     {
         const {result, address} = req.body
-        console.log(address)
-        const user = await User.create({
-            name:result.name,
-            email:result.email,
-            profilePic:result.imageUrl,
-            address:address
-        })
-        console.log(user)
-        res.status(200).json(user)
+        console.log(req.body)
+        const isUser = await User.find({email:req.body.email})
+        if(isUser.length===0) {
+            const user = await User.create({
+                name:result.name,
+                email:result.email,
+                profilePic:result.imageUrl,
+                address:address
+            })
+            console.log(user)
+            res.status(200).json(user)
+        }else{
+            console.log(isUser)
+            res.status(400).json({message:"user exists"})
+        }
+
 
     }
     catch(error)
@@ -174,8 +181,8 @@ const getClientSecretKey= async (req, res)=>{
 const productOrdered= async (req, res)=>{
     try {
         const {userEmail, products, cart, address} = req.body
+        console.log(req.body)
         const user = await User.find({email:userEmail})
-        await user.save()
         products.map(async (item)=>{
             const order = await Order.create({
                 product : item,
@@ -185,19 +192,24 @@ const productOrdered= async (req, res)=>{
                 address:address,
                 merchantId:item.merchant
             })
-
+            
             const prod = await Product.findById(item._id)
             prod.totalSold = prod.totalSold+1
             prod.totalPrice += prod.totalPrice
-
+            
             await prod.save()
-
+            
             const merchant = await Merchant.findById(item._id)
-            merchant.profits += item.price
-
-            await merchant.save()
+            if(merchant){
+                merchant.profits += item.price
+                
+                await merchant.save()
+            }
         })
+        
+        console.log('done')
         if(cart){
+            await user.save()
             user.cart = []
         }
 
