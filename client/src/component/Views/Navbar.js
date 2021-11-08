@@ -37,7 +37,7 @@ const Navbar = (props) => {
   };
 
   const handleSearchSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     console.log(query);
     navigate(`/search/${query}`);
   };
@@ -51,10 +51,9 @@ const Navbar = (props) => {
     dispatch(loadAllProducts());
   };
 
-  const openStores= () =>
-  {
-    navigate('/stores')
-  }
+  const openStores = () => {
+    navigate("/stores");
+  };
 
   const [navbarOpen, setNavbarOpen] = React.useState(false);
 
@@ -97,16 +96,13 @@ const Navbar = (props) => {
           </div>
           <div className="w-2/5">
             <form onSubmit={handleSearchSubmit}>
-            <input
-              onChange={handleSearchChange}
-              className="border-2 w-3/4 border-gray-200"
-            />{" "}
-            <button type="submit">
-              <SearchIcon
-                className="h-6 w-6 inline cursor-pointer"
-              />
-            </button>
-            
+              <input
+                onChange={handleSearchChange}
+                className="border-2 w-3/4 border-gray-200"
+              />{" "}
+              <button type="submit">
+                <SearchIcon className="h-6 w-6 inline cursor-pointer" />
+              </button>
             </form>
           </div>
 
@@ -125,13 +121,17 @@ const Navbar = (props) => {
                 >
                   Orders
                 </button>
-                {user?(<button
-                  className="px-2 py-1 mr-2 bg-red-300 text-indigo-800 hover:bg-blue-500 hover:text-white rounded"
-                  onClick={() => navigate('/referral')}
-                >
-                  Referals
-                </button>):<span></span>}
-                
+                {user ? (
+                  <button
+                    className="px-2 py-1 mr-2 bg-red-300 text-indigo-800 hover:bg-blue-500 hover:text-white rounded"
+                    onClick={() => navigate("/referral")}
+                  >
+                    Referals
+                  </button>
+                ) : (
+                  <span></span>
+                )}
+
                 {user ? (
                   <button
                     className="px-2 py-1 mr-2 bg-green-300 text-indigo-800 hover:bg-green-500 hover:text-white rounded"
@@ -473,7 +473,10 @@ const Navbar = (props) => {
           </ul>
         </div>
         <div class="dropdown relative z-40 inline-block mx-2">
-        <button onClick={openStores} class=" text-gray-700 font-normal inline-flex items-center">
+          <button
+            onClick={openStores}
+            class=" text-gray-700 font-normal inline-flex items-center"
+          >
             <span class="text-white mr-1">Stores</span>
             <svg
               class="fill-current h-4 w-4"
@@ -486,7 +489,6 @@ const Navbar = (props) => {
               />{" "}
             </svg>
           </button>
-
         </div>
       </div>
     </>

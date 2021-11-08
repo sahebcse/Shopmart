@@ -1,32 +1,42 @@
-const express=require('express')
-const router=express.Router()
+const express = require("express");
+const router = express.Router();
 
+const {
+  createProduct,
+  getProductById,
+  editProductById,
+  getAllProducts,
+  deleteProductById,
+  getProductsByMerchant,
+  addReview,
+  searchProducts,
+  getProductsByCategory,
+  getCategoriesList,
+  deleteAllProducts,
+} = require("../controllers/productController");
+const { isInCache } = require("../middleware/isInCache");
+const { queryIsInCache } = require("../middleware/queryIsinCache");
 
+router.post("/product", createProduct);
 
-const {createProduct, getProductById, editProductById, getAllProducts, deleteProductById, getProductsByMerchant, addReview, searchProducts, getProductsByCategory, getCategoriesList, deleteAllProducts}=require('../controllers/productController')
-const { isInCache } = require('../middleware/isInCache')
-const {queryIsInCache}=require('../middleware/queryIsinCache')
+router.get("/product/:id", getProductById);
 
-router.post('/product', createProduct)
+router.put("/product/:id", editProductById);
 
-router.get('/product/:id', getProductById)
+router.get("/products", isInCache, getAllProducts);
 
-router.put('/product/:id', editProductById)
+router.delete("/product/:id", deleteProductById);
 
-router.get('/products', isInCache, getAllProducts)
+router.get("/products/merchant/:merchantId", getProductsByMerchant);
 
-router.delete('/product/:id', deleteProductById)
+router.post("/product/:id/review", addReview);
 
-router.get('/products/merchant/:merchantId', getProductsByMerchant)
+router.get("/product/search/:query", queryIsInCache, searchProducts);
 
-router.post('/product/:id/review', addReview)
+router.get("/products/category/:category", getProductsByCategory);
 
-router.get('/product/search/:query', queryIsInCache, searchProducts)
+router.get("/categories/list", getCategoriesList);
 
-router.get('/products/category/:category', getProductsByCategory)
+router.get("/clearproducts", deleteAllProducts);
 
-router.get('/categories/list', getCategoriesList)
-
-router.get('/clearproducts', deleteAllProducts)
-
-module.exports=router
+module.exports = router;

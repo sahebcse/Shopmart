@@ -1,33 +1,40 @@
-const express=require('express')
-const router=express.Router()
+const express = require("express");
+const router = express.Router();
 
+const {
+  createUser,
+  getUserById,
+  getAllUsers,
+  deleteAllCartItems,
+  getUserCartItems,
+  removeCartItemById,
+  addToCart,
+  userLogin,
+  getClientSecretKey,
+  productOrdered,
+  useReferral,
+} = require("../controllers/userController");
 
-const {createUser, getUserById, getAllUsers, deleteAllCartItems, getUserCartItems, removeCartItemById,addToCart,userLogin, getClientSecretKey,productOrdered, useReferral} = require('../controllers/userController')
+router.post("/user/signup", createUser);
 
+router.post("/user/login", userLogin);
 
-router.post('/user/signup', createUser)
+router.get("/user/:id", getUserById);
 
-router.post('/user/login', userLogin)
+router.get("/users", getAllUsers);
 
-router.get('/user/:id', getUserById)
+router.delete("/users/deletecart/:id", deleteAllCartItems);
 
-router.get('/users', getAllUsers)
+router.post("/users/removeCartItemById", removeCartItemById);
 
-router.delete('/users/deletecart/:id', deleteAllCartItems)
+router.get("/users/getUserCartItems/:id", getUserCartItems);
 
-router.post('/users/removeCartItemById', removeCartItemById)
+router.post("/users/addToCart", addToCart);
 
-router.get('/users/getUserCartItems/:id', getUserCartItems)
+router.post("/user/getClientSecretKey", getClientSecretKey);
 
-router.post('/users/addToCart', addToCart)
+router.post("/user/productOrdered", productOrdered);
 
+router.post("/useReferral", useReferral);
 
-router.post('/user/getClientSecretKey', getClientSecretKey)
-
-router.post('/user/productOrdered', productOrdered)
-
-
-router.post('/useReferral', useReferral)
-
-
-module.exports=router
+module.exports = router;

@@ -32,8 +32,6 @@ const promise = loadStripe(
   "pk_test_51J8GAsSH4Sh8XwNi3Gw7LEGc44TQTY63b8VdJP4D3fHL30bpHIJKlhL7BKcxex80KPwDZg08Adywy5WTeKLZbngP00FQwvXLWv"
 );
 
-
-
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -60,7 +58,14 @@ function App() {
             }
           />
 
-          <Route path="/checkout" element={<Elements stripe={promise}><Checkout /></Elements>} />
+          <Route
+            path="/checkout"
+            element={
+              <Elements stripe={promise}>
+                <Checkout />
+              </Elements>
+            }
+          />
 
           <Route path="/store/:id" element={<StoreView />} />
           <Route path="/search/:query" element={<SearchResults />} />

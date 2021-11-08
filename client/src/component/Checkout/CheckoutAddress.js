@@ -1,130 +1,158 @@
-import React, { useEffect, useState } from 'react'
-import {Country, State, City } from 'country-state-city'
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormHelperText from '@mui/material/FormHelperText';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import TextField from '@mui/material/TextField';
+import React, { useEffect, useState } from "react";
+import { Country, State, City } from "country-state-city";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormHelperText from "@mui/material/FormHelperText";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import TextField from "@mui/material/TextField";
 
-const countries = Country.getAllCountries()
-let storeStates = []
-let storeCities = []
-let countryISO = ''
+const countries = Country.getAllCountries();
+let storeStates = [];
+let storeCities = [];
+let countryISO = "";
 
-const CheckoutAddress = ({selectedCSC, setSelectedCSC}) => {
-    const user = JSON.parse(localStorage.getItem('profile'))
-    const [value,setValue]  = useState(selectedCSC.storeName)
-    const [value2,setValue2]  = useState(selectedCSC.streetAddress)
+const CheckoutAddress = ({ selectedCSC, setSelectedCSC }) => {
+  const user = JSON.parse(localStorage.getItem("profile"));
+  const [value, setValue] = useState(selectedCSC.storeName);
+  const [value2, setValue2] = useState(selectedCSC.streetAddress);
 
-    console.log("rerender")
+  console.log("rerender");
 
-    const handleCountryChange = (e)=>{
-        setSelectedCSC({...selectedCSC, country:e.target.value})
-    }
-    
-    const handleStateChange = (e)=>{
-        setSelectedCSC({...selectedCSC, state:e.target.value})
-    }
+  const handleCountryChange = (e) => {
+    setSelectedCSC({ ...selectedCSC, country: e.target.value });
+  };
 
-    const handleCityChange = (e)=>{
-        setSelectedCSC({...selectedCSC, city:e.target.value})
-    }
+  const handleStateChange = (e) => {
+    setSelectedCSC({ ...selectedCSC, state: e.target.value });
+  };
 
-    const handeChangeStreetAddress = (e)=>{
-        setValue2(e.target.value)
-        selectedCSC.streetAddress = e.target.value
-        console.log(selectedCSC.streetAddress)
-    }
-    const handeChangeStoreName = (e)=>{
-        setValue(e.target.value)
-        selectedCSC.storeName = e.target.value
-        console.log(selectedCSC.storeName)
-    }
-    
-    
-    const changeState = (e)=>{
-        console.log("Fuck")
-        storeStates = State.getStatesOfCountry(e)
-        countryISO=e
-    }
+  const handleCityChange = (e) => {
+    setSelectedCSC({ ...selectedCSC, city: e.target.value });
+  };
 
-    const changeCity = (e)=>{
-        storeCities = City.getCitiesOfState(countryISO,e)
-        console.log(storeCities)
-    }
+  const handeChangeStreetAddress = (e) => {
+    setValue2(e.target.value);
+    selectedCSC.streetAddress = e.target.value;
+    console.log(selectedCSC.streetAddress);
+  };
+  const handeChangeStoreName = (e) => {
+    setValue(e.target.value);
+    selectedCSC.storeName = e.target.value;
+    console.log(selectedCSC.storeName);
+  };
 
-    return (
-        <div >
-            <div>
-                product display
-            </div>
-            <div className="flex flex-wrap flex-start">
+  const changeState = (e) => {
+    console.log("Fuck");
+    storeStates = State.getStatesOfCountry(e);
+    countryISO = e;
+  };
 
-            <p  className="mt-2 px-4 text-xl font-bold text-gary-900">Delivery Address</p>
-            <div >
-                <p  className="mt-2 px-4 text-lg font-normal text-gray-800">{user?.result?.address?.streetAddress}</p>
-                <p  className="mt-2 px-4 text-lg font-normal text-gray-800">{user?.result?.address?.city}, {user?.result?.address?.state}</p>
-                <p  className="mt-2 px-4 text-lg font-normal text-gray-800">{user?.result?.address?.country}</p>
-            </div>
-            </div>
-            <p className="mt-2 px-4 text-xl font-bold text-gary-900">Change Address</p>
-            <FormControl sx={{ px: 1,mt: 3, minWidth: 120 }} className="m-1" fullWidth>
-                <TextField  label="Street Address" variant="outlined"  value={value2} fullWidth onChange={handeChangeStreetAddress}/>
-            </FormControl>
-            <FormControl sx={{ px: 1, mt:3, minWidth: 120 }} className="m-3 w-1/2">
-                <InputLabel id="demo-simple-select-helper-label">Country</InputLabel>
-                <Select
-                labelId="demo-simple-select-helper-label"
-                id="demo-simple-select-helper"
-                value={selectedCSC.country}
-                label="Country"
-                onChange={handleCountryChange}
-                >
-                {countries.map(country => {
-                    return (
-                        <MenuItem value={country.name} onClick={()=>changeState(country.isoCode)}>{country.name}</MenuItem>
-                    )
-                })}
-                </Select>
-            </FormControl>
+  const changeCity = (e) => {
+    storeCities = City.getCitiesOfState(countryISO, e);
+    console.log(storeCities);
+  };
 
-            <FormControl sx={{px: 1, mt:3,minWidth: 120 }} className="w-1/2 m-3">
-                <InputLabel id="demo-simple-select-helper-label">State</InputLabel>
-                <Select halfWidth
-                labelId="demo-simple-select-helper-label"
-                id="demo-simple-select-helper"
-                value={selectedCSC.state}
-                label="State"
-                onChange={handleStateChange}
-                >
-                {storeStates.map(state => {
-                    return (
-                        <MenuItem value={state.name} onClick={()=>changeCity(state.isoCode)}>{state.name}</MenuItem>
-                    )
-                })}
-                </Select>
-            </FormControl>
-
-            <FormControl sx={{ px: 1,mt: 3, minWidth: 120 }} fullWidth className="m-3">
-                <InputLabel id="demo-simple-select-helper-label">City</InputLabel>
-                <Select
-                labelId="demo-simple-select-helper-label"
-                id="demo-simple-select-helper"
-                value={selectedCSC.city}
-                label="City"
-                onChange={handleCityChange}
-                >
-                {storeCities.map(city => {
-                    return (
-                        <MenuItem value={city.name}>{city.name}</MenuItem>
-                    )
-                })}
-                </Select>
-            </FormControl>
-
+  return (
+    <div>
+      <div>product display</div>
+      <div className="flex flex-wrap flex-start">
+        <p className="mt-2 px-4 text-xl font-bold text-gary-900">
+          Delivery Address
+        </p>
+        <div>
+          <p className="mt-2 px-4 text-lg font-normal text-gray-800">
+            {user?.result?.address?.streetAddress}
+          </p>
+          <p className="mt-2 px-4 text-lg font-normal text-gray-800">
+            {user?.result?.address?.city}, {user?.result?.address?.state}
+          </p>
+          <p className="mt-2 px-4 text-lg font-normal text-gray-800">
+            {user?.result?.address?.country}
+          </p>
         </div>
-    )
-}
+      </div>
+      <p className="mt-2 px-4 text-xl font-bold text-gary-900">
+        Change Address
+      </p>
+      <FormControl
+        sx={{ px: 1, mt: 3, minWidth: 120 }}
+        className="m-1"
+        fullWidth
+      >
+        <TextField
+          label="Street Address"
+          variant="outlined"
+          value={value2}
+          fullWidth
+          onChange={handeChangeStreetAddress}
+        />
+      </FormControl>
+      <FormControl sx={{ px: 1, mt: 3, minWidth: 120 }} className="m-3 w-1/2">
+        <InputLabel id="demo-simple-select-helper-label">Country</InputLabel>
+        <Select
+          labelId="demo-simple-select-helper-label"
+          id="demo-simple-select-helper"
+          value={selectedCSC.country}
+          label="Country"
+          onChange={handleCountryChange}
+        >
+          {countries.map((country) => {
+            return (
+              <MenuItem
+                value={country.name}
+                onClick={() => changeState(country.isoCode)}
+              >
+                {country.name}
+              </MenuItem>
+            );
+          })}
+        </Select>
+      </FormControl>
 
-export default CheckoutAddress
+      <FormControl sx={{ px: 1, mt: 3, minWidth: 120 }} className="w-1/2 m-3">
+        <InputLabel id="demo-simple-select-helper-label">State</InputLabel>
+        <Select
+          halfWidth
+          labelId="demo-simple-select-helper-label"
+          id="demo-simple-select-helper"
+          value={selectedCSC.state}
+          label="State"
+          onChange={handleStateChange}
+        >
+          {storeStates.map((state) => {
+            return (
+              <MenuItem
+                value={state.name}
+                onClick={() => changeCity(state.isoCode)}
+              >
+                {state.name}
+              </MenuItem>
+            );
+          })}
+        </Select>
+      </FormControl>
+
+      <FormControl
+        sx={{ px: 1, mt: 3, minWidth: 120 }}
+        fullWidth
+        className="m-3"
+      >
+        <InputLabel id="demo-simple-select-helper-label">City</InputLabel>
+        <Select
+          labelId="demo-simple-select-helper-label"
+          id="demo-simple-select-helper"
+          value={selectedCSC.city}
+          label="City"
+          onChange={handleCityChange}
+        >
+          {storeCities.map((city) => {
+            return <MenuItem value={city.name}>{city.name}</MenuItem>;
+          })}
+        </Select>
+      </FormControl>
+    </div>
+  );
+};
+
+export default CheckoutAddress;
