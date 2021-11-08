@@ -47,7 +47,7 @@ function Product() {
               title: reviewTitle,
               content: comment,
               rating: 3,
-              userId: user.result[0]._id,
+              userId: user.result._id,
               productId: params.id,
             };
             const { data } = addReview(rdata);
@@ -58,7 +58,7 @@ function Product() {
               title: reviewTitle,
               content: comment,
               rating: 3,
-              user: user.result[0]._id,
+              user: user.result._id,
             };
             alert("Please refrain from being toxic the next time");
             const { data } = addReview(rdata);

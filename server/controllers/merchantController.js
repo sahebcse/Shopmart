@@ -39,7 +39,7 @@ const getMerchantById=async (req, res)=>
 
 const loginMerchant=async (req, res)=> {
     try {
-        const merchant = await Merchant.find({email:req.body.email}).populate('products')
+        const merchant = await Merchant.findOne({email:req.body.email}).populate('products')
         console.log("login",merchant)
         res.status(200).json(merchant)
     } catch (error) {

@@ -19,8 +19,9 @@ const AddProduct = () => {
     console.log(user)
     const handleAddNewProduct = (e) =>{
         e.preventDefault()
+        console.log('Adding product')
         console.log(user.result)
-        dispatch(addNewProduct({id:user.result[0]._id,productData:newProductData}))
+        dispatch(addNewProduct({id:user.result._id,productData:newProductData}))
 
     }
 

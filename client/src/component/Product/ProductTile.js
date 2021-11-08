@@ -9,7 +9,7 @@ export default function ProductTile({ name, image, brand, price, id }) {
   };
   return (
     <div className="shadow-sm grid transition-all duration-500 justify-items-center hover:shadow-2xl bg-gray">
-      <img onClick={handleClick} className="" src={image} />
+      <img onClick={handleClick} className="h-64 w-64" src={image} />
       <h2
         onClick={handleClick}
         className="text-lg text-gray-400 cursor-pointer"
